@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>search</key>
+	<string>https://content.guardianapis.com/&lt;session&gt;?api-key=682d5167-6040-4664-aa3a-a1c3cf7bbe00&gt;&amp;page-size=15&amp;page=&lt;pageNumber&gt;&amp;show-fields=&lt;showFields&gt;</string>
+	<key>notices</key>
+	<string>https://content.guardianapis.com/&lt;session&gt;?api-key=682d5167-6040-4664-aa3a-a1c3cf7bbe00&amp;page-size=15&amp;page=&lt;pageNumber&gt;&amp;show-fields=&lt;showFields&gt;</string>
+	<key>session</key>
+	<string>https://content.guardianapis.com/sections?api-key=682d5167-6040-4664-aa3a-a1c3cf7bbe00&amp;show-elements=&lt;showElements&gt;</string>
+</dict>
+</plist>
