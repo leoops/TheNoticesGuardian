@@ -17,7 +17,7 @@ class SessionTableViewController: UITableViewController {
     
     @IBOutlet weak var sessionButton: UILabel!
     
-    var sessions = [Results]()
+    var sessions = [SessionResults]()
     var isRefreshing : Bool = false
     
     override func viewDidLoad() {
@@ -32,18 +32,16 @@ class SessionTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
     }
     
+    /// Busca de sessoes de noticias
+    ///
+    /// - Parameter element: tipo de sessao a ser mostrada na listagem
     func requestSessions(element : String ) {
-        if !isRefreshing {
-            isRefreshing = true
-            ApiService.requestAllSessions(showElements: element, handler: { (items) in
-                if let items = items {
-                    self.sessions = items
-                }
-                self.tableView.reloadData()
-                self.isRefreshing = false
-            })
-            
-        }
+        ApiService.requestAllSessions(showElements: element, handler: { (items) in
+            if let items = items {
+                self.sessions = items
+            }
+            self.tableView.reloadData()
+        })
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -64,11 +62,15 @@ class SessionTableViewController: UITableViewController {
     }
     
 
-    override func performSegue(withIdentifier identifier: String, sender: Any?) {
-        //if identifier = identifier == "noticesSegue"
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let noticesTableViewController = segue.destination as? NoticesTableViewController {
+            if let session = sender as? String {
+                noticesTableViewController.selectedSession = session
+            }
+        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //self.prepare(for: "noticesSegue", sender: sessions[indexPath])
+        self.performSegue(withIdentifier: "noticesSegue", sender: self.sessions[indexPath.row].id)
     }
 }

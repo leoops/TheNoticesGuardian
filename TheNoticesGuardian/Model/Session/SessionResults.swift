@@ -11,9 +11,9 @@ import SwiftyJSON
 
 
 
-class Results {
+class SessionResults {
     
-    private enum SerializationKey {
+    private struct SerializationKey {
         static let id = "id"
         static let webTitle = "webTitle"
         static let apiUrl = "apiUrl"

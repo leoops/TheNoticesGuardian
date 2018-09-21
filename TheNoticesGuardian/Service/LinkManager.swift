@@ -29,6 +29,7 @@ class LinkManager {
         static let session = "<session>"
         static let showFields = "<showFields>"
         static let showElements = "<showElements>"
+        static let id = "<id>"
     }
    
     static func listOsSessions(showElements: String) -> String {
@@ -40,22 +41,28 @@ class LinkManager {
         return ""
     }
     
-    static func listOfNotices(session: String, pageNumber: String, showFields: String) -> String {
-        let contentFile = contentOfFile(path: pathType, type: pathType)
-        if var link = contentFile?[Keys.notices] as? String {
+    static func listOfNotices(session: String, pageNumber: String) -> String {
+        if let contentFile = contentOfFile(path: pathFile, type: pathType), var link = contentFile[Keys.notices] as? String {
             link = link.replacingOccurrences(of: Tags.session, with: session)
             link = link.replacingOccurrences(of: Tags.page, with: pageNumber)
-            link = link.replacingOccurrences(of: Tags.showFields, with: showFields)
             return link
         }
         return ""
     }
+    
     static func listOfSearchNotices() -> String {
         return ""
     }
-    static func itemNotice() -> String {
+    
+    static func itemNotice(id: String) -> String {
+        let contentFile = contentOfFile(path: pathFile, type: pathType)
+        if var link = contentFile?[Keys.notice] as? String {
+            link = link.replacingOccurrences(of: Tags.id, with: id)
+            return link
+        }
         return ""
     }
+    
     static func contentOfFile(path: String, type: String) -> Dictionary<String,AnyObject>? {
         if let path = Bundle.main.path(forResource: path, ofType: type) {
             if let dictionary = NSDictionary(contentsOfFile: path) as? Dictionary<String,AnyObject> {

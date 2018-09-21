@@ -1,5 +1,5 @@
 //
-//  Sessao.swift
+//  Noticia.swift
 //  TheNoticesGuardian
 //
 //  Created by Stefanini on 18/09/18.
@@ -9,23 +9,22 @@
 import Foundation
 import SwiftyJSON
 
-
-class Session {
-    
+class Notices {
     private struct SerializationKeys {
         static let response = "response"
         static let results = "results"
+        static let page = "page"
     }
     
-    var total: Int?
-    var results = [SessionResults]()
+    var page: Int?
+    var results = [NoticesResults]()
     
     public convenience init(object: Any) {
         self.init(json: JSON(object))
     }
-    
     public required init(json: JSON) {
         let json = json[SerializationKeys.response]
-        if let results = json[SerializationKeys.results].array {self.results = results.map { SessionResults(json: $0)}}
+        page = json[SerializationKeys.page].int
+        if let results = json[SerializationKeys.results].array {self.results = results.map { NoticesResults(json: $0)}}
     }
 }
