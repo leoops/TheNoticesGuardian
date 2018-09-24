@@ -10,54 +10,56 @@ import Foundation
 
 class LinkManager {
 
-    static let pathFile = "Services"
-    static let pathType = "plist"
-    
+    private struct Path {
+        static let file = "Services"
+        static let type = "plist"
+    }
     private struct Keys {
         static let notices = "notices"
         static let session = "session"
-        static let apiKey = "apiKey"
-        static let url = "url"
         static let notice = "notice"
         static let search = "search"
     }
     
     private struct Tags{
-        static let page = "<pageNumber>"
-        static let apiKey = "<apiKey>"
-        static let url = "<url>"
-        static let session = "<session>"
-        static let showFields = "<showFields>"
-        static let showElements = "<showElements>"
+        //
         static let id = "<id>"
+        static let section = "<section>"
+        static let page = "<pageNumber>"
+        static let showElements = "<showElements>"
+        static let queryParam = "<queryParam>"
     }
    
-    static func listOsSessions(showElements: String) -> String {
-        let contentFile = contentOfFile(path: pathFile, type: pathType)
-        if var link = contentFile?[Keys.session] as? String {
+    static func listOfSections(showElements: String) -> String {
+        if let contentFile = contentOfFile(path: Path.file, type: Path.type), var link = contentFile[Keys.session] as? String {
             link = link.replacingOccurrences(of: Tags.showElements, with: showElements)
             return link
         }
         return ""
     }
     
-    static func listOfNotices(session: String, pageNumber: String) -> String {
-        if let contentFile = contentOfFile(path: pathFile, type: pathType), var link = contentFile[Keys.notices] as? String {
-            link = link.replacingOccurrences(of: Tags.session, with: session)
+    static func listOfNotices(section: String, pageNumber: String) -> String {
+        if let contentFile = contentOfFile(path: Path.file, type: Path.type), var link = contentFile[Keys.notices] as? String {
+            link = link.replacingOccurrences(of: Tags.section, with: section)
             link = link.replacingOccurrences(of: Tags.page, with: pageNumber)
             return link
         }
         return ""
     }
-    
-    static func listOfSearchNotices() -> String {
+    static func itemNotice(id: String) -> String {
+        let contentFile = contentOfFile(path: Path.file, type: Path.type)
+        if var link = contentFile?[Keys.notice] as? String {
+            link = link.replacingOccurrences(of: Tags.id, with: id)
+            return link
+        }
         return ""
     }
     
-    static func itemNotice(id: String) -> String {
-        let contentFile = contentOfFile(path: pathFile, type: pathType)
-        if var link = contentFile?[Keys.notice] as? String {
-            link = link.replacingOccurrences(of: Tags.id, with: id)
+    static func listsOfSearchNotices(withQueryParam param: String,andPage page: String, inSection section: String) -> String {
+        if let contentFile = contentOfFile(path: Path.file, type: Path.type), var link = contentFile[Keys.search] as? String {
+            link = link.replacingOccurrences(of: Tags.queryParam, with: param)
+            link = link.replacingOccurrences(of: Tags.section, with: section)
+            link = link.replacingOccurrences(of: Tags.page, with: page)
             return link
         }
         return ""

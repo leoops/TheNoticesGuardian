@@ -14,11 +14,11 @@ import SwiftyJSON
 class NoticesResults {
     
     private struct SerializationKeys {
+        static let fields = "fields"
         static let id = "id"
         static let webTitle = "webTitle"
         static let webPublicationDate = "webPublicationDate"
         static let thumbnail = "thumbnail"
-        static let fields = "fields"
     }
     
     let webTitle : String?

@@ -10,7 +10,7 @@ import Foundation
 import SwiftyJSON
 
 
-class Session {
+class Section {
     
     private struct SerializationKeys {
         static let response = "response"
@@ -18,7 +18,7 @@ class Session {
     }
     
     var total: Int?
-    var results = [SessionResults]()
+    var results = [SectionResults]()
     
     public convenience init(object: Any) {
         self.init(json: JSON(object))
@@ -26,6 +26,6 @@ class Session {
     
     public required init(json: JSON) {
         let json = json[SerializationKeys.response]
-        if let results = json[SerializationKeys.results].array {self.results = results.map { SessionResults(json: $0)}}
+        if let results = json[SerializationKeys.results].array {self.results = results.map { SectionResults(json: $0)}}
     }
 }

@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>notice</key>
-	<string>https://content.guardianapis.com/&lt;id&gt;?api-key=beea06ac-ec4d-4547-9118-db67727e4e7e&amp;show-elements=all&amp;show-fields=bodyText,thumbnail</string>
+	<string>https://content.guardianapis.com/&lt;id&gt;?api-key=682d5167-6040-4664-aa3a-a1c3cf7bbe00&amp;show-elements=all&amp;show-fields=bodyText,thumbnail</string>
 	<key>search</key>
-	<string>https://content.guardianapis.com/&lt;session&gt;?api-key=682d5167-6040-4664-aa3a-a1c3cf7bbe00&gt;&amp;page-size=15&amp;page=&lt;pageNumber&gt;&amp;show-fields=&lt;showFields&gt;</string>
+	<string>https://content.guardianapis.com/search?api-key=682d5167-6040-4664-aa3a-a1c3cf7bbe00&amp;show-elements=all&amp;page-size=15&amp;page=&lt;pageNumber&gt;&amp;section=&lt;section&gt;&amp;q=&lt;queryParam&gt;</string>
 	<key>notices</key>
-	<string>https://content.guardianapis.com/&lt;session&gt;?api-key=682d5167-6040-4664-aa3a-a1c3cf7bbe00&amp;page-size=15&amp;page=&lt;pageNumber&gt;&amp;show-fields=thumbnail</string>
+	<string>https://content.guardianapis.com/&lt;section&gt;?api-key=682d5167-6040-4664-aa3a-a1c3cf7bbe00&amp;page-size=15&amp;page=&lt;pageNumber&gt;&amp;show-fields=thumbnail</string>
 	<key>session</key>
 	<string>https://content.guardianapis.com/sections?api-key=682d5167-6040-4664-aa3a-a1c3cf7bbe00&amp;show-elements=&lt;showElements&gt;</string>
 </dict>

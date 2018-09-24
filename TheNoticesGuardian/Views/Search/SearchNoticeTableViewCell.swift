@@ -10,6 +10,9 @@ import UIKit
 
 class SearchNoticeTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var sectionLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

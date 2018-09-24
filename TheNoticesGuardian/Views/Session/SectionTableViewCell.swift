@@ -8,9 +8,9 @@
 
 import UIKit
 
-class SessionTableViewCell: UITableViewCell {
+class SectionTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var labelSession: UILabel!
+    @IBOutlet weak var sectionLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

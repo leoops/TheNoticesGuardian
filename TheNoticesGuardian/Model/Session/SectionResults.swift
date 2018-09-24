@@ -11,7 +11,7 @@ import SwiftyJSON
 
 
 
-class SessionResults {
+class SectionResults {
     
     private struct SerializationKey {
         static let id = "id"
