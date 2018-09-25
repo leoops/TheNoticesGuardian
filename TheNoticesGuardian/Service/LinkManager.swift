@@ -18,6 +18,7 @@ class LinkManager {
         static let notice = "notice"
         static let notices = "notices"
         static let search = "search"
+        static let searchWithSection = "searchWithSection"
         static let session = "session"
     }
     
@@ -55,9 +56,14 @@ class LinkManager {
     }
     
     static func listsOfSearchNotices(withQueryParam param: String,andPage page: String, inSection section: String) -> String {
-        if let contentFile = contentOfFile(path: Path.file, type: Path.type), var link = contentFile[Keys.search] as? String {
+        
+        if let contentFile = contentOfFile(path: Path.file, type: Path.type),
+            var link = section == "" ? contentFile[Keys.search] as? String : contentFile[Keys.searchWithSection] as? String {
+            if section != ""
+            {
+                link = link.replacingOccurrences(of: Tags.section, with: section)
+            }
             link = link.replacingOccurrences(of: Tags.queryParam, with: param)
-            link = link.replacingOccurrences(of: Tags.section, with: section)
             link = link.replacingOccurrences(of: Tags.page, with: page)
             return link
         }

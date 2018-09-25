@@ -17,7 +17,7 @@ class NoticeTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        self.setupCell()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -26,4 +26,9 @@ class NoticeTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    func setupCell() {
+        self.titleLabel.text = ""
+        self.dateLabel.text = ""
+
+    }
 }

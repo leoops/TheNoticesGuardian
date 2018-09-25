@@ -11,9 +11,11 @@
 		20AEEF645BA6BA953587CAA4 /* Pods_TheNoticesGuardianUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262483E6B0E62CB19EE8152 /* Pods_TheNoticesGuardianUITests.framework */; };
 		4991ACB63D7F5C0CF881204D /* Pods_TheNoticesGuardian.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ACF3E86830E9A2F5DB15A16 /* Pods_TheNoticesGuardian.framework */; };
 		9A06D7E121558A4400DCD71A /* Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A06D7E021558A4400DCD71A /* Notice.swift */; };
+		9A3137A1215ACB0C00D3770E /* SectionModalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3137A0215ACB0C00D3770E /* SectionModalTableViewCell.swift */; };
 		9A3ACEAD21590DAC00E5004F /* SearchNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3ACEAC21590DAC00E5004F /* SearchNotice.swift */; };
 		9A3ACEB12159140400E5004F /* SearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3ACEB02159140400E5004F /* SearchResults.swift */; };
 		9ACAFD1321595E49003C0B5F /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAFD1221595E49003C0B5F /* PickerViewController.swift */; };
+		9ACAFD15215AA15E003C0B5F /* SectionModalableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAFD14215AA15E003C0B5F /* SectionModalableViewController.swift */; };
 		9AFD35A821512E0200B3165C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFD35A721512E0200B3165C /* AppDelegate.swift */; };
 		9AFD35AD21512E0200B3165C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AFD35AB21512E0200B3165C /* Main.storyboard */; };
 		9AFD35AF21512E0300B3165C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9AFD35AE21512E0300B3165C /* Assets.xcassets */; };
@@ -59,9 +61,11 @@
 		5777F4B08C4FBBD9CB632ACF /* Pods-TheNoticesGuardianUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheNoticesGuardianUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TheNoticesGuardianUITests/Pods-TheNoticesGuardianUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8262483E6B0E62CB19EE8152 /* Pods_TheNoticesGuardianUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheNoticesGuardianUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A06D7E021558A4400DCD71A /* Notice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.swift; sourceTree = "<group>"; };
+		9A3137A0215ACB0C00D3770E /* SectionModalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionModalTableViewCell.swift; sourceTree = "<group>"; };
 		9A3ACEAC21590DAC00E5004F /* SearchNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNotice.swift; sourceTree = "<group>"; };
 		9A3ACEB02159140400E5004F /* SearchResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResults.swift; sourceTree = "<group>"; };
 		9ACAFD1221595E49003C0B5F /* PickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
+		9ACAFD14215AA15E003C0B5F /* SectionModalableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionModalableViewController.swift; sourceTree = "<group>"; };
 		9AFD35A421512E0200B3165C /* TheNoticesGuardian.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheNoticesGuardian.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AFD35A721512E0200B3165C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9AFD35AC21512E0200B3165C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -266,6 +270,8 @@
 				9AFD35DA2151777C00B3165C /* SearchTableViewController.swift */,
 				9AFD35E02151802E00B3165C /* SearchNoticeTableViewCell.swift */,
 				9ACAFD1221595E49003C0B5F /* PickerViewController.swift */,
+				9ACAFD14215AA15E003C0B5F /* SectionModalableViewController.swift */,
+				9A3137A0215ACB0C00D3770E /* SectionModalTableViewCell.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -529,9 +535,11 @@
 				9AFD35D92151772900B3165C /* NoticeTableViewCell.swift in Sources */,
 				9AFD35F82155393800B3165C /* NoticesResults.swift in Sources */,
 				9AFD35E6215180E600B3165C /* Section.swift in Sources */,
+				9ACAFD15215AA15E003C0B5F /* SectionModalableViewController.swift in Sources */,
 				9AFD35E12151802E00B3165C /* SearchNoticeTableViewCell.swift in Sources */,
 				9A3ACEB12159140400E5004F /* SearchResults.swift in Sources */,
 				9AFD35E42151809B00B3165C /* Notices.swift in Sources */,
+				9A3137A1215ACB0C00D3770E /* SectionModalTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

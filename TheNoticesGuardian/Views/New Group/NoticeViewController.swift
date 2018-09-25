@@ -20,6 +20,7 @@ class NoticeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.initialConfig()
         requestNotice(id: noticeId!)
     }
     
@@ -37,5 +38,10 @@ class NoticeViewController: UIViewController {
             }
         })
     }
-    
+    func initialConfig() {
+        self.bodyLabel.text = ""
+        self.dateLabel.text = ""
+        self.sectionLabel.text = ""
+        self.titleLabel.text = ""
+    }
 }

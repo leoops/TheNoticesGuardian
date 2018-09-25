@@ -14,7 +14,6 @@ class SectionTableViewController: UITableViewController {
     var sections = [SectionResults]()
     let showElement: String = "all"
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         requestSections(element: showElement)

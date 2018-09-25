@@ -98,16 +98,13 @@ class SearchTableViewController: UITableViewController {
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        case "pickerSegue":
-            if let pickerViewController = segue.destination as? PickerViewController {
-                pickerViewController.delegate = self
-            }
-        default:
-            if let noticeViewController = segue.destination as? NoticeViewController {
-                if let sender = sender as? String {
-                    noticeViewController.noticeId = sender
-                }
+        if let navController = segue.destination as? UINavigationController,
+            let pickerTableViewController = navController.viewControllers.first as? SectionModalTableViewController {
+            pickerTableViewController.delegate = self
+        }
+        if let noticeViewController = segue.destination as? NoticeViewController {
+            if let sender = sender as? String {
+                noticeViewController.noticeId = sender
             }
         }
     }
@@ -126,9 +123,12 @@ extension SearchTableViewController: UISearchBarDelegate {
     }
 }
 
-extension SearchTableViewController: PickerViewControllerDelegate {
+extension SearchTableViewController: SectionModalTableViewControllerDelegate {
     func selectedSection(section: String) {
         self.section = section
+        print(section, "oi")
     }
+    
+    
 }
 
