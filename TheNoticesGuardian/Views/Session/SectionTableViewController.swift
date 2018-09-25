@@ -11,33 +11,16 @@ import Alamofire
 
 class SectionTableViewController: UITableViewController {
     
-    enum ElementSection: String {
-        case all = "all"
-    }
-    
     var sections = [SectionResults]()
-    var isRefreshing : Bool = false
+    let showElement: String = "all"
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        requestSections(element: ElementSection.all.rawValue)
-    }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+        requestSections(element: showElement)
     }
     
-    func requestSections(element : String ) {
-        ApiService.requestAllSections(showElements: element, handler: { (items) in
-            if let items = items {
-                self.sections = items
-            }
-            self.tableView.reloadData()
-        })
-    }
+    // MARK: - Table view data
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -48,14 +31,16 @@ class SectionTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "sectionCell", for: indexPath) as! SectionTableViewCell
-
         let section = sections[indexPath.row]
+        
         cell.sectionLabel.text = section.webTitle
         
         return cell
     }
     
+    // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let noticesTableViewController = segue.destination as? NoticesTableViewController {
@@ -67,5 +52,16 @@ class SectionTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: "noticesSegue", sender: self.sections[indexPath.row].id)
+    }
+    
+    // MARK: - Data requests
+    
+    func requestSections(element : String ) {
+        ApiService.requestAllSections(showElements: element, handler: { (items) in
+            if let items = items {
+                self.sections = items
+            }
+            self.tableView.reloadData()
+        })
     }
 }

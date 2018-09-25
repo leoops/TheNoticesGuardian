@@ -315,7 +315,6 @@
                             <textInputTraits key="textInputTraits"/>
                             <scopeButtonTitles>
                                 <string>Title</string>
-                                <string>Title</string>
                             </scopeButtonTitles>
                             <connections>
                                 <outlet property="delegate" destination="qkq-Th-w8T" id="X3c-WK-t4a"/>

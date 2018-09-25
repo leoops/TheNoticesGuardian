@@ -16,7 +16,7 @@ class NoticesTableViewController: UITableViewController {
     var notices = [NoticesResults]()
     var selectedSection: String?
     var isRefresh: Bool = false
-    var pageCurrent: Int? = 1
+    var currentPage: Int? = 0
     var page: Int = 0
     
     override func viewWillAppear(_ animated: Bool) {
@@ -32,16 +32,17 @@ class NoticesTableViewController: UITableViewController {
     
     func requestAndRefreshOfNotices() {
         
-        if !isRefresh && self.page <= self.pageCurrent! {
+        if !isRefresh{
             self.isRefresh = true
-            self.page += 1
-            ApiService.requestNotices(inPage: self.page, withSection: self.selectedSection!, handler: { (newNotices) in
+            self.currentPage = self.currentPage! + 1
+            ApiService.requestNotices(inPage: self.currentPage!, withSection: self.selectedSection!, handler: { (newNotices) in
                 if let notices = newNotices?.results {
                     self.notices += notices
                 }
-                self.pageCurrent = newNotices?.pages
+                if self.currentPage! < (newNotices?.pages)! {
+                    self.isRefresh = false
+                }
                 self.tableView.reloadData()
-                self.isRefresh = false
             })
         }
         
@@ -60,18 +61,14 @@ class NoticesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "noticeCell", for: indexPath) as! NoticeTableViewCell
-        
         let notice = notices[indexPath.row]
-        
-        if let thumbnail = notice.thumbnail {
-            let url = URL(string: thumbnail)
-            cell.thumbnailImageView.kf.indicatorType = .activity
-            cell.thumbnailImageView.kf.setImage(with: url)
-        }
         
         cell.titleLabel.text = notice.webTitle
         cell.dateLabel.text = notice.webPublicationDate
-        
+        if let thumbnail = notice.thumbnail {
+            cell.thumbnailImageView.kf.indicatorType = .activity
+            cell.thumbnailImageView.kf.setImage(with: URL(string: thumbnail))
+        }
         return cell
     }
     

@@ -15,19 +15,19 @@ class LinkManager {
         static let type = "plist"
     }
     private struct Keys {
-        static let notices = "notices"
-        static let session = "session"
         static let notice = "notice"
+        static let notices = "notices"
         static let search = "search"
+        static let session = "session"
     }
     
     private struct Tags{
         //
         static let id = "<id>"
-        static let section = "<section>"
         static let page = "<pageNumber>"
-        static let showElements = "<showElements>"
         static let queryParam = "<queryParam>"
+        static let section = "<section>"
+        static let showElements = "<showElements>"
     }
    
     static func listOfSections(showElements: String) -> String {
@@ -47,8 +47,7 @@ class LinkManager {
         return ""
     }
     static func itemNotice(id: String) -> String {
-        let contentFile = contentOfFile(path: Path.file, type: Path.type)
-        if var link = contentFile?[Keys.notice] as? String {
+        if let contentFile = contentOfFile(path: Path.file, type: Path.type), var link = contentFile[Keys.notice] as? String {
             link = link.replacingOccurrences(of: Tags.id, with: id)
             return link
         }
@@ -70,7 +69,6 @@ class LinkManager {
             if let dictionary = NSDictionary(contentsOfFile: path) as? Dictionary<String,AnyObject> {
                 return dictionary
             }
-            
         }
         return nil
     }

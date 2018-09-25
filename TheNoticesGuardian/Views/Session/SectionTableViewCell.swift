@@ -14,10 +14,15 @@ class SectionTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.setupLayer()
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-
+    
+    func setupLayer() {
+        self.sectionLabel.layer.cornerRadius = (self.sectionLabel.frame.size.height/2)
+        self.sectionLabel.clipsToBounds = true
+    }
 }

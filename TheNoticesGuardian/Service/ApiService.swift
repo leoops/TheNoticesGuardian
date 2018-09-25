@@ -11,16 +11,11 @@ import Alamofire
 import SwiftyJSON
 
 class ApiService {
-    typealias JsonSectionHandler = (([SectionResults]?) -> ())
+    typealias JsonNoticeHandler = ((Notice?) -> ())
     typealias JsonNoticesHandler = ((Notices?) -> ())
     typealias JsonSearchNoticesHandler = ((SearchNotice?) -> ())
-    typealias JsonNoticeHandler = ((Notice?) -> ())
+    typealias JsonSectionHandler = (([SectionResults]?) -> ())
     
-    /// <#Description#>
-    ///
-    /// - Parameters:
-    ///   - showElements: tipo do conteudo da section a ser buscado
-    ///   - handler: conjunto de noticias retornado ao final da requição
     static func requestAllSections(showElements: String, handler: JsonSectionHandler?){
         guard let url = URL(string:LinkManager.listOfSections(showElements: showElements)) else {
             return

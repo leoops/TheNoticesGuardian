@@ -14,9 +14,11 @@ class Notices {
         static let response = "response"
         static let results = "results"
         static let pages = "pages"
+        static let currentPage = "currentPage"
     }
     
     var pages: Int?
+    var currentPage: Int?
     var results = [NoticesResults]()
     
     public convenience init(object: Any) {
@@ -24,7 +26,8 @@ class Notices {
     }
     public required init(json: JSON) {
         let json = json[SerializationKeys.response]
-        pages = json[SerializationKeys.pages].int
+        self.pages = json[SerializationKeys.pages].int
+        self.currentPage = json[SerializationKeys.currentPage].int
         if let results = json[SerializationKeys.results].array {self.results = results.map { NoticesResults(json: $0)}}
     }
 }
