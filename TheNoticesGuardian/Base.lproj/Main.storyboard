@@ -11,10 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Sessoes-->
+        <!--Sections-->
         <scene sceneID="9pg-zr-Nhc">
             <objects>
-                <tableViewController title="Sessoes" id="lth-4X-EQ3" customClass="SectionTableViewController" customModule="TheNoticesGuardian" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Sections" id="lth-4X-EQ3" customClass="SectionTableViewController" customModule="TheNoticesGuardian" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="8Hh-uw-f0A">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -137,7 +137,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ISW-Mt-jFW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1911.2" y="-380.05997001499253"/>
+            <point key="canvasLocation" x="2535" y="-380"/>
         </scene>
         <!--Noticia-->
         <scene sceneID="dyY-IZ-e1M">
@@ -180,33 +180,34 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20.5" id="Wv2-A0-snr"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aYv-ki-5qN">
-                                        <rect key="frame" x="8" y="294.5" width="359" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ue-k8-wIg">
+                                        <rect key="frame" x="8" y="294" width="359" height="200"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="aYv-ki-5qN" firstAttribute="trailing" secondItem="3Li-gk-kaZ" secondAttribute="trailing" id="5gs-oC-G5I"/>
-                                    <constraint firstAttribute="bottom" secondItem="aYv-ki-5qN" secondAttribute="bottom" id="7YZ-0D-Wfs"/>
+                                    <constraint firstItem="1Ue-k8-wIg" firstAttribute="leading" secondItem="9hI-wu-tIo" secondAttribute="leading" constant="8" id="8Kq-Qz-hl8"/>
                                     <constraint firstAttribute="height" constant="600" id="ATG-UK-0qQ"/>
                                     <constraint firstItem="gHu-qq-3Ls" firstAttribute="trailing" secondItem="GbH-Ds-R10" secondAttribute="trailing" id="J51-mR-z6R"/>
                                     <constraint firstItem="gHu-qq-3Ls" firstAttribute="top" secondItem="ZAT-Le-Mhp" secondAttribute="bottom" constant="8" id="Mli-wG-vjS"/>
+                                    <constraint firstItem="1Ue-k8-wIg" firstAttribute="top" secondItem="3Li-gk-kaZ" secondAttribute="bottom" constant="8" id="PtF-a6-kss"/>
                                     <constraint firstItem="ZAT-Le-Mhp" firstAttribute="leading" secondItem="GbH-Ds-R10" secondAttribute="leading" id="RdC-eG-5YN"/>
                                     <constraint firstAttribute="trailing" secondItem="GbH-Ds-R10" secondAttribute="trailing" constant="8" id="TL4-7N-7Qc"/>
+                                    <constraint firstItem="1Ue-k8-wIg" firstAttribute="trailing" secondItem="3Li-gk-kaZ" secondAttribute="trailing" id="Vs5-uL-H4l"/>
+                                    <constraint firstAttribute="bottom" secondItem="1Ue-k8-wIg" secondAttribute="bottom" id="bfL-Gs-LtM"/>
                                     <constraint firstItem="gHu-qq-3Ls" firstAttribute="leading" secondItem="ZAT-Le-Mhp" secondAttribute="leading" id="bkk-0N-5d5"/>
                                     <constraint firstAttribute="width" constant="375" id="bzJ-ZJ-z63"/>
-                                    <constraint firstItem="aYv-ki-5qN" firstAttribute="top" secondItem="3Li-gk-kaZ" secondAttribute="bottom" constant="8" id="d0I-2a-IYY"/>
                                     <constraint firstItem="3Li-gk-kaZ" firstAttribute="leading" secondItem="9hI-wu-tIo" secondAttribute="leading" constant="8" id="fP4-8S-4Hm"/>
                                     <constraint firstItem="ZAT-Le-Mhp" firstAttribute="top" secondItem="GbH-Ds-R10" secondAttribute="bottom" constant="8" id="lXx-td-YVh"/>
                                     <constraint firstAttribute="trailing" secondItem="ZAT-Le-Mhp" secondAttribute="trailing" constant="160" id="p9e-MK-I8t"/>
                                     <constraint firstItem="3Li-gk-kaZ" firstAttribute="trailing" secondItem="gHu-qq-3Ls" secondAttribute="trailing" id="sH3-yr-cHO"/>
-                                    <constraint firstItem="aYv-ki-5qN" firstAttribute="leading" secondItem="3Li-gk-kaZ" secondAttribute="leading" id="srQ-eu-UGa"/>
                                     <constraint firstItem="GbH-Ds-R10" firstAttribute="top" secondItem="9hI-wu-tIo" secondAttribute="top" constant="8" id="wjS-Jw-q8P"/>
                                     <constraint firstItem="3Li-gk-kaZ" firstAttribute="top" secondItem="gHu-qq-3Ls" secondAttribute="bottom" constant="8" id="xdH-Zu-O14"/>
                                     <constraint firstItem="GbH-Ds-R10" firstAttribute="leading" secondItem="9hI-wu-tIo" secondAttribute="leading" constant="8" id="zHO-El-pbZ"/>
@@ -221,7 +222,7 @@
                         <viewLayoutGuide key="safeArea" id="6Ji-rv-5oc"/>
                     </view>
                     <connections>
-                        <outlet property="bodyLabel" destination="aYv-ki-5qN" id="eGz-T2-GPR"/>
+                        <outlet property="bodyLabel" destination="1Ue-k8-wIg" id="dVy-Ly-Gx2"/>
                         <outlet property="dateLabel" destination="3Li-gk-kaZ" id="ijW-lw-GGP"/>
                         <outlet property="sectionLabel" destination="ZAT-Le-Mhp" id="4si-v1-vT3"/>
                         <outlet property="thumbnailImageView" destination="GbH-Ds-R10" id="jcO-u0-g0r"/>
@@ -230,7 +231,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cSl-vT-Wje" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2688.8000000000002" y="-0.44977511244377816"/>
+            <point key="canvasLocation" x="2534" y="321"/>
         </scene>
         <!--Section Modal Table View Controller-->
         <scene sceneID="smG-DN-jqH">
@@ -283,56 +284,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IgH-py-BpW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2744.8000000000002" y="947.67616191904051"/>
-        </scene>
-        <!--Picker View Controller-->
-        <scene sceneID="n5F-pA-cYf">
-            <objects>
-                <viewController id="TAQ-wW-mls" customClass="PickerViewController" customModule="TheNoticesGuardian" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="aip-lJ-MvM">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vi9-L9-8cJ">
-                                <rect key="frame" x="28" y="225" width="320" height="216"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="TAQ-wW-mls" id="QFh-UK-dL6"/>
-                                    <outlet property="delegate" destination="TAQ-wW-mls" id="fbb-l7-L1V"/>
-                                </connections>
-                            </pickerView>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tJn-pu-LgQ">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <items>
-                                    <navigationItem title="Filter" id="VWp-7E-lQ1">
-                                        <barButtonItem key="rightBarButtonItem" title="Ok" id="zwG-lf-Mjz">
-                                            <connections>
-                                                <action selector="selectFilter:" destination="TAQ-wW-mls" id="Rbb-2D-S74"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="vi9-L9-8cJ" firstAttribute="centerX" secondItem="aip-lJ-MvM" secondAttribute="centerX" id="8he-mw-nVa"/>
-                            <constraint firstItem="FX9-aw-3qn" firstAttribute="bottom" secondItem="vi9-L9-8cJ" secondAttribute="bottom" constant="226" id="9ui-dc-JRc"/>
-                            <constraint firstItem="vi9-L9-8cJ" firstAttribute="centerY" secondItem="aip-lJ-MvM" secondAttribute="centerY" id="TqS-rv-cBF"/>
-                            <constraint firstItem="tJn-pu-LgQ" firstAttribute="top" secondItem="FX9-aw-3qn" secondAttribute="top" id="VuE-wC-bhf"/>
-                            <constraint firstItem="vi9-L9-8cJ" firstAttribute="leading" secondItem="FX9-aw-3qn" secondAttribute="leading" constant="27.5" id="bwk-BT-aIC"/>
-                            <constraint firstItem="FX9-aw-3qn" firstAttribute="trailing" secondItem="vi9-L9-8cJ" secondAttribute="trailing" constant="27.5" id="ceR-tS-5mA"/>
-                            <constraint firstItem="tJn-pu-LgQ" firstAttribute="trailing" secondItem="FX9-aw-3qn" secondAttribute="trailing" id="fkE-Oz-6Hc"/>
-                            <constraint firstItem="vi9-L9-8cJ" firstAttribute="top" secondItem="FX9-aw-3qn" secondAttribute="top" constant="205" id="yGC-Jb-aFD"/>
-                            <constraint firstItem="tJn-pu-LgQ" firstAttribute="leading" secondItem="FX9-aw-3qn" secondAttribute="leading" id="ymN-ek-ILm"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="FX9-aw-3qn"/>
-                    </view>
-                    <connections>
-                        <outlet property="sectionsPicker" destination="vi9-L9-8cJ" id="4oU-lQ-jvo"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mwp-Ce-fRh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3628" y="719.19040479760122"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="7lE-JB-ozi">

@@ -19,63 +19,29 @@ class SearchTableViewController: UITableViewController {
     
     var section: String? = ""
     var queryParam: String? = ""
-    var noticesResult = [SearchResults]()
+    var notices = [SearchResults]()
     var currentPage: Int? = 0
     var isRefresh: Bool = false
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
-
-    func newRequestSearchNotices(queryParam: String, section: String) {
-        self.noticesResult.removeAll()
-        ApiService.requestOfSearchNotice(withQueryParam: queryParam, andPage: 1, inSection: section,  handler: { (newNotices) in
-            if let notices = newNotices{
-                self.noticesResult = notices.results
-                self.currentPage = notices.currentPage
-            }
-            self.tableView.reloadData()
-        })
-    }
-    
-    func requestAndReplaceSearchNotices(queryParam: String, section: String) {
-        
-        if !isRefresh{
-            self.isRefresh = true
-            self.currentPage = self.currentPage! + 1
-            ApiService.requestOfSearchNotice(withQueryParam: queryParam, andPage: self.currentPage!, inSection: section,  handler: { (newNotices) in
-                if let notices = newNotices{
-                    self.noticesResult += notices.results
-                    if self.currentPage! < notices.pages! {
-                        self.isRefresh = false
-                    }
-                }
-                self.tableView.reloadData()
-                
-            })
-        }
-        
-    }
     
     // MARK: - Table view data source
-    
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.001
-    }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.noticesResult.count
+        return self.notices.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: searchNoticeCell, for: indexPath) as! SearchNoticeTableViewCell
-        let notice = self.noticesResult[indexPath.row]
+        let notice = self.notices[indexPath.row]
         
-        cell.dateLabel.text = notice.webPublicationDate
+        cell.dateLabel.text = notice.webPublicationDate?.formatDate(oldFormat: "yyyy-MM-dd'T'HH:mm:ssZ", newFormat: "dd/MM/yyyy' 'HH:mm:ss")
         cell.sectionLabel.text = notice.sectionName
         cell.titleLabel.text = notice.webTitle
         
@@ -83,13 +49,11 @@ class SearchTableViewController: UITableViewController {
         return cell
     }
     
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y >= scrollView.contentSize.height - scrollView.frame.size.height {
-            if (self.queryParam != "") {
-                requestAndReplaceSearchNotices(queryParam: self.queryParam!, section: self.section!)
-            }
-        }
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.001
     }
+    
+   
     
     @IBAction func filterButton(_ sender: Any) {
         self.performSegue(withIdentifier: pickerSegue, sender: Any?.self )
@@ -109,9 +73,46 @@ class SearchTableViewController: UITableViewController {
         }
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: noticeSegue, sender: noticesResult[indexPath.row].id)
+        performSegue(withIdentifier: noticeSegue, sender: notices[indexPath.row].id)
     }
     
+    // MARK: - Request data
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y >= scrollView.contentSize.height - scrollView.frame.size.height {
+            if (notices.count != 0) {
+                requestAndReplaceSearchNotices(queryParam: self.queryParam!, section: self.section!)
+            }
+        }
+    }
+    
+    func newRequestSearchNotices(queryParam: String, section: String) {
+        self.notices.removeAll()
+        ApiService.requestOfSearchNotice(withQueryParam: queryParam, andPage: 1, inSection: section,  handler: { (newNotices) in
+            if let notices = newNotices{
+                self.notices = notices.results
+                self.currentPage = notices.currentPage
+            }
+            self.tableView.reloadData()
+        })
+    }
+    
+    func requestAndReplaceSearchNotices(queryParam: String, section: String) {
+        if !isRefresh{
+            self.isRefresh = true
+            self.currentPage = self.currentPage! + 1
+            ApiService.requestOfSearchNotice(withQueryParam: queryParam, andPage: self.currentPage!, inSection: section,  handler: { (newNotices) in
+                if let notices = newNotices{
+                    self.notices += notices.results
+                    if self.currentPage! < notices.pages! {
+                        self.isRefresh = false
+                    }
+                }
+                self.tableView.reloadData()
+                
+            })
+        }
+    }
 }
 
 extension SearchTableViewController: UISearchBarDelegate {
@@ -126,8 +127,8 @@ extension SearchTableViewController: UISearchBarDelegate {
 extension SearchTableViewController: SectionModalTableViewControllerDelegate {
     func selectedSection(section: String) {
         self.section = section
+        notices.removeAll()
+        requestAndReplaceSearchNotices(queryParam: self.queryParam!, section: self.section!)
     }
-    
-    
 }
 

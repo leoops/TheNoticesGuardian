@@ -23,10 +23,6 @@ class SearchResults {
     let webPublicationDate: String?
     let sectionName: String?
     
-    public convenience init(object: Any){
-        self.init(json: JSON(object))
-    }
-    
     public required init(json: JSON){
         self.id = json[SerializationKeys.id].string
         self.webTitle = json[SerializationKeys.webTitle].string

@@ -5,9 +5,9 @@
 	<key>notice</key>
 	<string>https://content.guardianapis.com/&lt;id&gt;?api-key=682d5167-6040-4664-aa3a-a1c3cf7bbe00&amp;show-elements=all&amp;show-fields=bodyText,thumbnail</string>
 	<key>search</key>
-	<string>https://content.guardianapis.com/search?api-key=682d5167-6040-4664-aa3a-a1c3cf7bbe00&amp;show-elements=all&amp;page-size=15&amp;page=&lt;pageNumber&gt;&amp;q=&lt;queryParam&gt;</string>
+	<string>https://content.guardianapis.com/search?api-key=682d5167-6040-4664-aa3a-a1c3cf7bbe00&amp;show-elements=all&amp;page-size=15&amp;order-by=newest&amp;page=&lt;pageNumber&gt;&amp;q=&lt;queryParam&gt;</string>
 	<key>searchWithSection</key>
-	<string>https://content.guardianapis.com/search?api-key=682d5167-6040-4664-aa3a-a1c3cf7bbe00&amp;show-elements=all&amp;page-size=15&amp;page=&lt;pageNumber&gt;&amp;section=&lt;section&gt;&amp;q=&lt;queryParam&gt;</string>
+	<string>https://content.guardianapis.com/search?api-key=682d5167-6040-4664-aa3a-a1c3cf7bbe00&amp;show-elements=all&amp;page-size=15&amp;order-by=newest&amp;page=&lt;pageNumber&gt;&amp;section=&lt;section&gt;&amp;q=&lt;queryParam&gt;</string>
 	<key>notices</key>
 	<string>https://content.guardianapis.com/&lt;section&gt;?api-key=682d5167-6040-4664-aa3a-a1c3cf7bbe00&amp;page-size=15&amp;page=&lt;pageNumber&gt;&amp;show-fields=thumbnail</string>
 	<key>session</key>

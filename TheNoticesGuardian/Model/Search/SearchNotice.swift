@@ -17,6 +17,7 @@ class SearchNotice {
         static let pages = "pages"
         static let currentPage = "currentPage"
     }
+    
     var currentPage: Int?
     var pages: Int?
     var results = [SearchResults]()
@@ -26,9 +27,11 @@ class SearchNotice {
     }
     
     public required init(json: JSON){
-        self.pages = json[SerializationKeys.response][SerializationKeys.pages].int
-        self.currentPage = json[SerializationKeys.response][SerializationKeys.currentPage].int
-        if let results = json[SerializationKeys.response][SerializationKeys.results].array {
+        let response = json[SerializationKeys.response]
+        
+        self.pages = response[SerializationKeys.pages].int
+        self.currentPage = response[SerializationKeys.currentPage].int
+        if let results = response[SerializationKeys.results].array {
             self.results = results.map { SearchResults(json: $0)}
         }
     }

@@ -14,13 +14,17 @@ class NoticesTableViewController: UITableViewController {
    let noticeSegue = "noticeSegue"
 
     var notices = [NoticesResults]()
+    
     var selectedSection: String?
+    var sectionTitle: String?
+    
     var isRefresh: Bool = false
     var currentPage: Int? = 0
     var page: Int = 0
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.title = sectionTitle
         self.requestAndRefreshOfNotices()
     }
 
@@ -30,6 +34,8 @@ class NoticesTableViewController: UITableViewController {
     
     // MARK: - Data request
     
+    
+    /// Requisição de noticias com atualização da tela
     func requestAndRefreshOfNotices() {
         
         if !isRefresh{
@@ -64,7 +70,8 @@ class NoticesTableViewController: UITableViewController {
         let notice = notices[indexPath.row]
         
         cell.titleLabel.text = notice.webTitle
-        cell.dateLabel.text = notice.webPublicationDate
+        cell.dateLabel.text = notice.webPublicationDate?.formatDate(oldFormat: "yyyy-MM-dd'T'HH:mm:ssZ", newFormat: "dd/MM/yyyy' 'HH:mm:ss")
+        
         if let thumbnail = notice.thumbnail {
             cell.thumbnailImageView.kf.indicatorType = .activity
             cell.thumbnailImageView.kf.setImage(with: URL(string: thumbnail))
@@ -74,7 +81,9 @@ class NoticesTableViewController: UITableViewController {
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y >= scrollView.contentSize.height - scrollView.frame.size.height {
-            requestAndRefreshOfNotices()
+            if notices.count != 0 {
+                requestAndRefreshOfNotices()
+            }
         }
     }
     
@@ -91,6 +100,7 @@ class NoticesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: noticeSegue, sender: notices[indexPath.row].id)
     }
+    
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.001
     }

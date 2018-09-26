@@ -13,7 +13,7 @@ class NoticeViewController: UIViewController {
     var noticeId: String?
     
     @IBOutlet weak var thumbnailImageView: UIImageView!
-    @IBOutlet weak var bodyLabel: UILabel!
+    @IBOutlet weak var bodyLabel: UITextView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var sectionLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
@@ -24,10 +24,14 @@ class NoticeViewController: UIViewController {
         requestNotice(id: noticeId!)
     }
     
+    /// Requisição da noticia aparti do id
+    ///
+    /// - Parameter id: codigo da noticia
     func requestNotice(id: String) {
         ApiService.requestNotice(withId: id, handler: { (item) in
             if let notice = item {
-                self.dateLabel.text = notice.webPublicationDate
+                
+                self.dateLabel.text = notice.webPublicationDate?.formatDate(oldFormat: "yyyy-MM-dd'T'HH:mm:ssZ", newFormat: "dd/MM/yyyy' 'HH:mm:ss")
                 self.sectionLabel.text = notice.sectionName
                 self.titleLabel.text = notice.webTitle
                 self.bodyLabel.text = notice.bodyText
@@ -38,6 +42,7 @@ class NoticeViewController: UIViewController {
             }
         })
     }
+    
     func initialConfig() {
         self.bodyLabel.text = ""
         self.dateLabel.text = ""

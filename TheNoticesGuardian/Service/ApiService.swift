@@ -16,6 +16,12 @@ class ApiService {
     typealias JsonSearchNoticesHandler = ((SearchNotice?) -> ())
     typealias JsonSectionHandler = (([SectionResults]?) -> ())
     
+    
+    /// Metodo de requicao de lista de seções
+    ///
+    /// - Parameters:
+    ///   - showElements: categoria da seção
+    ///   - handler: closure de resposta
     static func requestAllSections(showElements: String, handler: JsonSectionHandler?){
         guard let url = URL(string:LinkManager.listOfSections(showElements: showElements)) else {
             return
@@ -34,6 +40,12 @@ class ApiService {
     }
     
     
+    /// Requisicao de todas as noticia referente a seção escolhida
+    ///
+    /// - Parameters:
+    ///   - page: numero da pagina
+    ///   - section: seção da busca
+    ///   - handler: closure de resposta
     static func requestNotices(inPage page: Int, withSection section: String, handler: JsonNoticesHandler?){
         guard let url = URL(string: LinkManager.listOfNotices(section: section, pageNumber: "\(page)")) else {
             return
@@ -51,8 +63,15 @@ class ApiService {
         }
     }
     
+    /// Serviço de requisao de lista de noticias com filtro de busca
+    ///
+    /// - Parameters:
+    ///   - param: parametro de busca
+    ///   - page: numero da pagina
+    ///   - section: seção da noticia
+    ///   - handler: closure de resposta
     static func requestOfSearchNotice(withQueryParam param: String, andPage page: Int, inSection section: String, handler: JsonSearchNoticesHandler?) {
-        guard let url = URL(string: LinkManager.listsOfSearchNotices(withQueryParam: param, andPage: "\(page)", inSection: FormatData().AddingPercentEncoding(value: section))) else {
+        guard let url = URL(string: LinkManager.listsOfSearchNotices(withQueryParam: param, andPage: "\(page)", inSection: section)) else {
             return
         }
         Alamofire.request(url).validate().responseJSON { (dataResponse) in
@@ -69,6 +88,11 @@ class ApiService {
         }
     }
     
+    /// Requisicao de noticia especifica
+    ///
+    /// - Parameters:
+    ///   - id: codigo da noticia
+    ///   - handler: closure de resposta
     static func requestNotice(withId id: String, handler: JsonNoticeHandler?) {
         guard let url = URL(string: LinkManager.itemNotice(id: id)) else {
             return

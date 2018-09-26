@@ -16,7 +16,6 @@ class SectionModalTableViewController: UITableViewController {
 
     let sectionModalCell = "sectionModalCell"
     
-    var sectionsString = ""
     var sections = [SectionResults]()
     var selectedSections = [Int]()
     weak var delegate: SectionModalTableViewControllerDelegate?
@@ -25,17 +24,9 @@ class SectionModalTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         self.requestSections(element: "all")
     }
-    
-    func requestSections(element : String ) {
-        ApiService.requestAllSections(showElements: element, handler: { (items) in
-            if let items = items {
-                self.sections.append(SectionResults(id: "", webTitle: "All", apiUrl: ""))
-                self.sections += items
-            }
-            self.tableView.reloadData()
-        })
+    func reselectSections() {
+        
     }
-
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -78,12 +69,15 @@ class SectionModalTableViewController: UITableViewController {
                 }
             } else if cell.accessoryType == .none {
                 if indexPath.row == 0 {
+                    
                     selectedSections.removeAll()
                     let cells = self.tableView.visibleCells
-                    cells.forEach{ $0.accessoryType = .checkmark }
+                    
                     for (index, _) in sections.enumerated() {
                         if index != 0 { selectedSections.append(index) }
                     }
+                    
+                    cells.forEach{ $0.accessoryType = .checkmark }
                 } else {
                     cell.accessoryType = .checkmark
                     selectedSections.append(indexPath.row)
@@ -92,14 +86,21 @@ class SectionModalTableViewController: UITableViewController {
         }
     }
     
-    @IBAction func selectFilter(_ sender: UIBarButtonItem) {
-        delegate?.selectedSection(section: prepareData())
-        self.dismiss(animated: true)
+    // MARK: - Data request
+    
+    func requestSections(element : String ) {
+        ApiService.requestAllSections(showElements: element, handler: { (items) in
+            if let items = items {
+                self.sections.append(SectionResults(id: "", webTitle: "All", apiUrl: ""))
+                self.sections += items
+            }
+            self.tableView.reloadData()
+        })
     }
     
+    
     func prepareData() -> String {
-        
-        
+        var sectionsString = ""
         
         selectedSections.forEach(){
             if let id = sections[$0].id {
@@ -110,4 +111,9 @@ class SectionModalTableViewController: UITableViewController {
         return sectionsString
     }
 
+    // MARK: - Navigation
+    @IBAction func selectFilter(_ sender: UIBarButtonItem) {
+        delegate?.selectedSection(section: prepareData())
+        self.dismiss(animated: true)
+    }
 }

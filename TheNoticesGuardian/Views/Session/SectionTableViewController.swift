@@ -34,6 +34,7 @@ class SectionTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "sectionCell", for: indexPath) as! SectionTableViewCell
         let section = sections[indexPath.row]
         
+        // configuracao da celula
         cell.sectionLabel.text = section.webTitle
         
         return cell
@@ -43,18 +44,24 @@ class SectionTableViewController: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let noticesTableViewController = segue.destination as? NoticesTableViewController {
-            if let section = sender as? String {
-                noticesTableViewController.selectedSection = section
+            if let section = sender as? SectionResults {
+                noticesTableViewController.selectedSection = section.id
+                noticesTableViewController.sectionTitle = section.webTitle
+                
             }
         }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "noticesSegue", sender: self.sections[indexPath.row].id)
+        self.performSegue(withIdentifier: "noticesSegue", sender: self.sections[indexPath.row])
     }
     
     // MARK: - Data requests
     
+    
+    /// Requisção das seções apartir da categoria
+    ///
+    /// - Parameter element: categoria da seção
     func requestSections(element : String ) {
         ApiService.requestAllSections(showElements: element, handler: { (items) in
             if let items = items {

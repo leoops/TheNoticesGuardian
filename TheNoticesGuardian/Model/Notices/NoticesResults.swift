@@ -25,11 +25,7 @@ class NoticesResults {
     let webPublicationDate : String?
     let thumbnail : String?
     let id : String?
-    
-    public convenience init(object: Any) {
-        self.init(json: JSON(object))
-    }
-    
+
     public required init(json: JSON) {
         self.id  = json[SerializationKeys.id].string
         self.webTitle  = json[SerializationKeys.webTitle].string

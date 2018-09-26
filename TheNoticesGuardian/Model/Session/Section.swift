@@ -25,8 +25,8 @@ class Section {
     }
     
     public required init(json: JSON) {
-        let json = json[SerializationKeys.response]
-        if let results = json[SerializationKeys.results].array {self.results = results.map { SectionResults(json: $0)}}
+        let response = json[SerializationKeys.response]
+        if let results = response[SerializationKeys.results].array {self.results = results.map { SectionResults(json: $0)}}
     }
     
 }
