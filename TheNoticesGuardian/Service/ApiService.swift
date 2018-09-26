@@ -52,7 +52,7 @@ class ApiService {
     }
     
     static func requestOfSearchNotice(withQueryParam param: String, andPage page: Int, inSection section: String, handler: JsonSearchNoticesHandler?) {
-        guard let url = URL(string: LinkManager.listsOfSearchNotices(withQueryParam: param, andPage: "\(page)", inSection: section)) else {
+        guard let url = URL(string: LinkManager.listsOfSearchNotices(withQueryParam: param, andPage: "\(page)", inSection: FormatData().AddingPercentEncoding(value: section))) else {
             return
         }
         Alamofire.request(url).validate().responseJSON { (dataResponse) in

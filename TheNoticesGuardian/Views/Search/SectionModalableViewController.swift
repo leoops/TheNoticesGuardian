@@ -16,8 +16,9 @@ class SectionModalTableViewController: UITableViewController {
 
     let sectionModalCell = "sectionModalCell"
     
+    var sectionsString = ""
     var sections = [SectionResults]()
-    var selectedScetions = [Int]()
+    var selectedSections = [Int]()
     weak var delegate: SectionModalTableViewControllerDelegate?
     
     override func viewWillAppear(_ animated: Bool) {
@@ -28,7 +29,8 @@ class SectionModalTableViewController: UITableViewController {
     func requestSections(element : String ) {
         ApiService.requestAllSections(showElements: element, handler: { (items) in
             if let items = items {
-                self.sections = items
+                self.sections.append(SectionResults(id: "", webTitle: "All", apiUrl: ""))
+                self.sections += items
             }
             self.tableView.reloadData()
         })
@@ -47,16 +49,46 @@ class SectionModalTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: sectionModalCell, for: indexPath) as! SectionModalTableViewCell
 
-        cell.titleLabel?.text = sections[indexPath.row].webTitle
+        switch indexPath.row {
+        case 0:
+            cell.titleLabel?.text = sections[indexPath.row].webTitle
+        default:
+            cell.titleLabel?.text = sections[indexPath.row].webTitle
+            let  selectedRow = selectedSections.contains(indexPath.row)
+            if selectedRow == true {
+                cell.accessoryType = .checkmark
+            } else {
+                cell.accessoryType = .none
+            }
+        }
         
         return cell
     }
-    
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) {
-            cell.accessoryType = .checkmark
-            selectedScetions.append(indexPath.row)
+            if cell.accessoryType == .checkmark {
+                if indexPath.row == 0 {
+                    let cells = self.tableView.visibleCells
+                    cells.forEach{ $0.accessoryType = .none }
+                    selectedSections.removeAll()
+                    
+                } else if let selectedIndex = selectedSections.index(where: {$0 == indexPath.row}) {
+                    selectedSections.remove(at: selectedIndex)
+                    cell.accessoryType = .none
+                }
+            } else if cell.accessoryType == .none {
+                if indexPath.row == 0 {
+                    selectedSections.removeAll()
+                    let cells = self.tableView.visibleCells
+                    cells.forEach{ $0.accessoryType = .checkmark }
+                    for (index, _) in sections.enumerated() {
+                        if index != 0 { selectedSections.append(index) }
+                    }
+                } else {
+                    cell.accessoryType = .checkmark
+                    selectedSections.append(indexPath.row)
+                }
+            }
         }
     }
     
@@ -65,12 +97,16 @@ class SectionModalTableViewController: UITableViewController {
         self.dismiss(animated: true)
     }
     
-    func prepareData () -> String {
-        var sectionsString = ""
-        sectionsString = selectedScetions.reduce(sectionsString, { (selecionadosString, index) -> String in
-            return "\(sections[index].id ?? ""),"
-        })
+    func prepareData() -> String {
         
+        
+        
+        selectedSections.forEach(){
+            if let id = sections[$0].id {
+                sectionsString.append("\(id)|")
+            }
+        }
+        sectionsString = String(sectionsString.dropLast())
         return sectionsString
     }
 

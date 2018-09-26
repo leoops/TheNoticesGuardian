@@ -32,5 +32,11 @@ class SectionResults {
         self.webTitle  = json[SerializationKey.webTitle].string
         self.apiUrl  = json[SerializationKey.apiUrl].string
     }
+    
+    public init(id: String, webTitle: String, apiUrl: String){
+        self.id  = id
+        self.webTitle  = webTitle
+        self.apiUrl  = apiUrl
+    }
 }
 

@@ -12,6 +12,7 @@
 		4991ACB63D7F5C0CF881204D /* Pods_TheNoticesGuardian.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ACF3E86830E9A2F5DB15A16 /* Pods_TheNoticesGuardian.framework */; };
 		9A06D7E121558A4400DCD71A /* Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A06D7E021558A4400DCD71A /* Notice.swift */; };
 		9A3137A1215ACB0C00D3770E /* SectionModalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3137A0215ACB0C00D3770E /* SectionModalTableViewCell.swift */; };
+		9A3137A4215BC7CC00D3770E /* FormatData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3137A3215BC7CC00D3770E /* FormatData.swift */; };
 		9A3ACEAD21590DAC00E5004F /* SearchNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3ACEAC21590DAC00E5004F /* SearchNotice.swift */; };
 		9A3ACEB12159140400E5004F /* SearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3ACEB02159140400E5004F /* SearchResults.swift */; };
 		9ACAFD1321595E49003C0B5F /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAFD1221595E49003C0B5F /* PickerViewController.swift */; };
@@ -62,6 +63,7 @@
 		8262483E6B0E62CB19EE8152 /* Pods_TheNoticesGuardianUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheNoticesGuardianUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A06D7E021558A4400DCD71A /* Notice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.swift; sourceTree = "<group>"; };
 		9A3137A0215ACB0C00D3770E /* SectionModalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionModalTableViewCell.swift; sourceTree = "<group>"; };
+		9A3137A3215BC7CC00D3770E /* FormatData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatData.swift; sourceTree = "<group>"; };
 		9A3ACEAC21590DAC00E5004F /* SearchNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNotice.swift; sourceTree = "<group>"; };
 		9A3ACEB02159140400E5004F /* SearchResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResults.swift; sourceTree = "<group>"; };
 		9ACAFD1221595E49003C0B5F /* PickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
@@ -150,6 +152,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9A3137A2215BC79B00D3770E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				9A3137A3215BC7CC00D3770E /* FormatData.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		9A3ACEAE21590F6300E5004F /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -193,6 +203,7 @@
 		9AFD35A621512E0200B3165C /* TheNoticesGuardian */ = {
 			isa = PBXGroup;
 			children = (
+				9A3137A2215BC79B00D3770E /* Utils */,
 				9AFD35EC2152C2DF00B3165C /* Service */,
 				9AFD35E22151807400B3165C /* Model */,
 				9AFD35D5215176A700B3165C /* Views */,
@@ -533,6 +544,7 @@
 				9AFD35F12153E9EE00B3165C /* SectionResults.swift in Sources */,
 				9AFD35DD21517FF000B3165C /* SectionTableViewController.swift in Sources */,
 				9AFD35D92151772900B3165C /* NoticeTableViewCell.swift in Sources */,
+				9A3137A4215BC7CC00D3770E /* FormatData.swift in Sources */,
 				9AFD35F82155393800B3165C /* NoticesResults.swift in Sources */,
 				9AFD35E6215180E600B3165C /* Section.swift in Sources */,
 				9ACAFD15215AA15E003C0B5F /* SectionModalableViewController.swift in Sources */,

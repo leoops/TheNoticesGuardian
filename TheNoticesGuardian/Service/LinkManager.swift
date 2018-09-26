@@ -56,7 +56,6 @@ class LinkManager {
     }
     
     static func listsOfSearchNotices(withQueryParam param: String,andPage page: String, inSection section: String) -> String {
-        
         if let contentFile = contentOfFile(path: Path.file, type: Path.type),
             var link = section == "" ? contentFile[Keys.search] as? String : contentFile[Keys.searchWithSection] as? String {
             if section != ""

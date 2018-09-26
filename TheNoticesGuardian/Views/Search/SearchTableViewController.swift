@@ -126,7 +126,6 @@ extension SearchTableViewController: UISearchBarDelegate {
 extension SearchTableViewController: SectionModalTableViewControllerDelegate {
     func selectedSection(section: String) {
         self.section = section
-        print(section, "oi")
     }
     
     
