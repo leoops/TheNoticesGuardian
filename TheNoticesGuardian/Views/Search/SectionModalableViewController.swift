@@ -48,9 +48,7 @@ class SectionModalTableViewController: UITableViewController {
         default:
             cell.titleLabel?.text = sections[indexPath.row].webTitle
             
-            let selectedRow = selectedSections.contains { $0.key == indexPath.row }
-            
-            if selectedRow {
+            if selectedSections.index(forKey: indexPath.row) != nil {
                 cell.accessoryType = .checkmark
             } else {
                 cell.accessoryType = .none
@@ -61,23 +59,22 @@ class SectionModalTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) {
-            if cell.accessoryType == .checkmark {
+            if cell.accessoryType == .checkmark{
                 if indexPath.row == 0 {
                     let cells = self.tableView.visibleCells
                     cells.forEach{ $0.accessoryType = .none }
                     selectedSections.removeAll()
                 } else {
-                    selectedSections.removeValue(forKey: indexPath.row)
                     cell.accessoryType = .none
+                    selectedSections.removeValue(forKey: indexPath.row)
                 }
             } else if cell.accessoryType == .none {
                 if indexPath.row == 0 {
-                    let cells = self.tableView.visibleCells
-                    
                     selectedSections.removeAll()
                     for (index, value) in sections.enumerated() {
                         index != 0 ? selectedSections[index] = value.id : nil
                     }
+                    let cells = self.tableView.visibleCells
                     cells.forEach{ $0.accessoryType = .checkmark }
                 } else {
                     selectedSections[indexPath.row] = self.sections[indexPath.row].id

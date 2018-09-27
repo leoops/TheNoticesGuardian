@@ -39,13 +39,12 @@ class SearchTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: searchNoticeCell, for: indexPath) as! SearchNoticeTableViewCell
-        let notice = self.notices[indexPath.row]
-        
-        cell.dateLabel.text = notice.webPublicationDate?.formatToStringDate(oldFormat: "yyyy-MM-dd'T'HH:mm:ssZ", newFormat: "dd/MM/yyyy' 'HH:mm:ss")
-        cell.sectionLabel.text = notice.sectionName
-        cell.titleLabel.text = notice.webTitle
-        
-
+        if  self.notices.count > 0 {
+            let notice = self.notices[indexPath.row]
+            cell.dateLabel.text = notice.webPublicationDate?.formatToStringDate(oldFormat: "yyyy-MM-dd'T'HH:mm:ssZ", newFormat: "dd/MM/yyyy' 'HH:mm:ss")
+            cell.sectionLabel.text = notice.sectionName
+            cell.titleLabel.text = notice.webTitle
+        }
         return cell
     }
     
@@ -111,9 +110,7 @@ class SearchTableViewController: UITableViewController {
     func prepareData() -> String  {
         var selectedSections = ""
         
-        for (_, value) in self.sections {
-            selectedSections.append("\(value)|")
-        }
+        self.sections.forEach { selectedSections.append("\($0.value)|") }
         selectedSections = "\(selectedSections.dropLast())"
         
         return selectedSections
@@ -134,8 +131,7 @@ extension SearchTableViewController: UISearchBarDelegate {
 extension SearchTableViewController: SectionModalTableViewControllerDelegate {
     func selectedSection(selectedSections : [Int : String]) {
         self.sections = selectedSections
-        notices.removeAll()
-        requestAndReplaceSearchNotices(queryParam: self.queryParam!, section: prepareData())
+        newRequestSearchNotices(queryParam: self.queryParam!, section: prepareData())
     }
 }
 

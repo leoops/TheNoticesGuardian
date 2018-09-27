@@ -16,9 +16,10 @@ class SectionTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        requestSections(element: showElement)
+        if Reachability()?.connection != Reachability.Connection.none {
+            requestSections(element: showElement)
+        }
     }
-    
     // MARK: - Table view data
     
     override func numberOfSections(in tableView: UITableView) -> Int {

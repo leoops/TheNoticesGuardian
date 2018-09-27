@@ -8,6 +8,8 @@
 
 import Foundation
 
+protocol Alert {}
+
 extension String{
     
     /// Metodo de converte de caracteres especiais de uma string em alfanumerico
@@ -17,7 +19,7 @@ extension String{
         if let link = self.addingPercentEncoding(withAllowedCharacters: NSMutableCharacterSet.alphanumeric() as CharacterSet){
             return link
         }
-            return self
+        return self
     }
     
     func formatToDate(format: String) -> Date {
