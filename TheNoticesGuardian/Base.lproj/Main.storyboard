@@ -82,7 +82,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="131.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noImage" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CH9-mX-3o8">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noImage" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CH9-mX-3o8">
                                             <rect key="frame" x="8" y="8" width="142" height="95.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="142" id="W7L-cq-xZ8"/>
@@ -463,6 +463,6 @@
         <image name="noImage" width="300" height="169"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Vsf-Q7-Hci"/>
+        <segue reference="iZ9-uK-Z8R"/>
     </inferredMetricsTieBreakers>
 </document>

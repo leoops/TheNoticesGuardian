@@ -26,6 +26,8 @@ class NoticeTableViewCell: UITableViewCell {
     }
 
     func setupCell() {
+        self.thumbnailImageView.layer.cornerRadius = self.thumbnailImageView.frame.size.height/2
+        self.thumbnailImageView.clipsToBounds = true
         self.titleLabel.text = ""
         self.dateLabel.text = ""
 
