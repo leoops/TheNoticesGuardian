@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SectionModalTableViewControllerDelegate: class {
-    func selectedSection(section: String)
+    func selectedSection(selectedSections: [Int: String])
     
 }
 class SectionModalTableViewController: UITableViewController {
@@ -17,13 +17,14 @@ class SectionModalTableViewController: UITableViewController {
     let sectionModalCell = "sectionModalCell"
     
     var sections = [SectionResults]()
-    var selectedSections = [Int]()
+    var selectedSections = [Int : String]()
     weak var delegate: SectionModalTableViewControllerDelegate?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.requestSections(element: "all")
     }
+    
     func reselectSections() {
         
     }
@@ -39,22 +40,25 @@ class SectionModalTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: sectionModalCell, for: indexPath) as! SectionModalTableViewCell
-
+        
+        // configure cells
         switch indexPath.row {
         case 0:
             cell.titleLabel?.text = sections[indexPath.row].webTitle
         default:
             cell.titleLabel?.text = sections[indexPath.row].webTitle
-            let  selectedRow = selectedSections.contains(indexPath.row)
-            if selectedRow == true {
+            
+            let selectedRow = selectedSections.contains { $0.key == indexPath.row }
+            
+            if selectedRow {
                 cell.accessoryType = .checkmark
             } else {
                 cell.accessoryType = .none
             }
         }
-        
         return cell
     }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) {
             if cell.accessoryType == .checkmark {
@@ -62,25 +66,22 @@ class SectionModalTableViewController: UITableViewController {
                     let cells = self.tableView.visibleCells
                     cells.forEach{ $0.accessoryType = .none }
                     selectedSections.removeAll()
-                    
-                } else if let selectedIndex = selectedSections.index(where: {$0 == indexPath.row}) {
-                    selectedSections.remove(at: selectedIndex)
+                } else {
+                    selectedSections.removeValue(forKey: indexPath.row)
                     cell.accessoryType = .none
                 }
             } else if cell.accessoryType == .none {
                 if indexPath.row == 0 {
-                    
-                    selectedSections.removeAll()
                     let cells = self.tableView.visibleCells
                     
-                    for (index, _) in sections.enumerated() {
-                        if index != 0 { selectedSections.append(index) }
+                    selectedSections.removeAll()
+                    for (index, value) in sections.enumerated() {
+                        index != 0 ? selectedSections[index] = value.id : nil
                     }
-                    
                     cells.forEach{ $0.accessoryType = .checkmark }
                 } else {
+                    selectedSections[indexPath.row] = self.sections[indexPath.row].id
                     cell.accessoryType = .checkmark
-                    selectedSections.append(indexPath.row)
                 }
             }
         }
@@ -97,23 +98,11 @@ class SectionModalTableViewController: UITableViewController {
             self.tableView.reloadData()
         })
     }
-    
-    
-    func prepareData() -> String {
-        var sectionsString = ""
-        
-        selectedSections.forEach(){
-            if let id = sections[$0].id {
-                sectionsString.append("\(id)|")
-            }
-        }
-        sectionsString = String(sectionsString.dropLast())
-        return sectionsString
-    }
 
     // MARK: - Navigation
+    
     @IBAction func selectFilter(_ sender: UIBarButtonItem) {
-        delegate?.selectedSection(section: prepareData())
+        delegate?.selectedSection(selectedSections: selectedSections)
         self.dismiss(animated: true)
     }
 }

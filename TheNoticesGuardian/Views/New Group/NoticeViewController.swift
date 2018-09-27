@@ -31,7 +31,7 @@ class NoticeViewController: UIViewController {
         ApiService.requestNotice(withId: id, handler: { (item) in
             if let notice = item {
                 
-                self.dateLabel.text = notice.webPublicationDate?.formatDate(oldFormat: "yyyy-MM-dd'T'HH:mm:ssZ", newFormat: "dd/MM/yyyy' 'HH:mm:ss")
+                self.dateLabel.text = notice.webPublicationDate?.formatToStringDate(oldFormat: "yyyy-MM-dd'T'HH:mm:ssZ", newFormat: "dd/MM/yyyy' 'HH:mm:ss")
                 self.sectionLabel.text = notice.sectionName
                 self.titleLabel.text = notice.webTitle
                 self.bodyLabel.text = notice.bodyText

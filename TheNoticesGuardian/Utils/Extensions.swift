@@ -30,7 +30,7 @@ extension String{
         }
         return date
     }
-    func formatDate(oldFormat: String, newFormat: String) -> String {
+    func formatToStringDate(oldFormat: String, newFormat: String) -> String {
         let date = String().formatToDate(format: oldFormat)
         let newStringDate = date.convertToString(format: newFormat)
         

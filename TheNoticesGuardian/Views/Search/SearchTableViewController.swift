@@ -17,7 +17,7 @@ class SearchTableViewController: UITableViewController {
     let noticeSegue = "searchNoticeSegue"
     let searchNoticeCell = "searchNoticeCell"
     
-    var section: String? = ""
+    var sections = [Int: String]()
     var queryParam: String? = ""
     var notices = [SearchResults]()
     var currentPage: Int? = 0
@@ -41,7 +41,7 @@ class SearchTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: searchNoticeCell, for: indexPath) as! SearchNoticeTableViewCell
         let notice = self.notices[indexPath.row]
         
-        cell.dateLabel.text = notice.webPublicationDate?.formatDate(oldFormat: "yyyy-MM-dd'T'HH:mm:ssZ", newFormat: "dd/MM/yyyy' 'HH:mm:ss")
+        cell.dateLabel.text = notice.webPublicationDate?.formatToStringDate(oldFormat: "yyyy-MM-dd'T'HH:mm:ssZ", newFormat: "dd/MM/yyyy' 'HH:mm:ss")
         cell.sectionLabel.text = notice.sectionName
         cell.titleLabel.text = notice.webTitle
         
@@ -52,19 +52,14 @@ class SearchTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.001
     }
-    
-   
-    
-    @IBAction func filterButton(_ sender: Any) {
-        self.performSegue(withIdentifier: pickerSegue, sender: Any?.self )
-    }
 
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let navController = segue.destination as? UINavigationController,
-            let pickerTableViewController = navController.viewControllers.first as? SectionModalTableViewController {
-            pickerTableViewController.delegate = self
+            let sectionModalTableViewController = navController.viewControllers.first as? SectionModalTableViewController {
+            sectionModalTableViewController.delegate = self
+            sectionModalTableViewController.selectedSections = self.sections
         }
         if let noticeViewController = segue.destination as? NoticeViewController {
             if let sender = sender as? String {
@@ -81,7 +76,7 @@ class SearchTableViewController: UITableViewController {
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y >= scrollView.contentSize.height - scrollView.frame.size.height {
             if (notices.count != 0) {
-                requestAndReplaceSearchNotices(queryParam: self.queryParam!, section: self.section!)
+                requestAndReplaceSearchNotices(queryParam: self.queryParam!, section: prepareData())
             }
         }
     }
@@ -113,22 +108,34 @@ class SearchTableViewController: UITableViewController {
             })
         }
     }
+    func prepareData() -> String  {
+        var selectedSections = ""
+        
+        for (_, value) in self.sections {
+            selectedSections.append("\(value)|")
+        }
+        selectedSections = "\(selectedSections.dropLast())"
+        
+        return selectedSections
+    }
 }
 
 extension SearchTableViewController: UISearchBarDelegate {
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        newRequestSearchNotices(queryParam: self.queryParam!, section: self.section!)
+        newRequestSearchNotices(queryParam: self.queryParam!, section: prepareData())
     }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.queryParam = searchText
     }
 }
 
 extension SearchTableViewController: SectionModalTableViewControllerDelegate {
-    func selectedSection(section: String) {
-        self.section = section
+    func selectedSection(selectedSections : [Int : String]) {
+        self.sections = selectedSections
         notices.removeAll()
-        requestAndReplaceSearchNotices(queryParam: self.queryParam!, section: self.section!)
+        requestAndReplaceSearchNotices(queryParam: self.queryParam!, section: prepareData())
     }
 }
 
