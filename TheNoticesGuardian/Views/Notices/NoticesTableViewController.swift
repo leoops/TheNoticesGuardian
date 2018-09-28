@@ -70,7 +70,7 @@ class NoticesTableViewController: UITableViewController {
         let notice = notices[indexPath.row]
         
         cell.titleLabel.text = notice.webTitle
-        cell.dateLabel.text = notice.webPublicationDate?.formatToStringDate(oldFormat: "yyyy-MM-dd'T'HH:mm:ssZ", newFormat: "dd/MM/yyyy' 'HH:mm:ss")
+        cell.dateLabel.text = notice.webPublicationDate?.formatToStringDate(oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy' 'HH:mm:ss")
         
         if let thumbnail = notice.thumbnail {
             cell.thumbnailImageView.kf.indicatorType = .activity

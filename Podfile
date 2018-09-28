@@ -10,6 +10,7 @@ target 'TheNoticesGuardian' do
   pod 'lottie-ios'
   pod 'Kingfisher', '~> 4.0'
   pod 'SwiftyJSON', '~> 4.0'
+  pod 'SwifterSwift'
 
   target 'TheNoticesGuardianTests' do
     inherit! :search_paths

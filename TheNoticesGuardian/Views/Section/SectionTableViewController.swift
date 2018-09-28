@@ -16,9 +16,7 @@ class SectionTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if Reachability()?.connection != Reachability.Connection.none {
-            requestSections(element: showElement)
-        }
+        requestSections(element: showElement)
     }
     // MARK: - Table view data
     
@@ -65,9 +63,7 @@ class SectionTableViewController: UITableViewController {
     /// - Parameter element: categoria da seção
     func requestSections(element : String ) {
         ApiService.requestAllSections(showElements: element, handler: { (items) in
-            if let items = items {
-                self.sections = items
-            }
+            if let items = items { self.sections = items }
             self.tableView.reloadData()
         })
     }

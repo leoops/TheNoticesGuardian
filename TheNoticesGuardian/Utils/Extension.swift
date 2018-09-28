@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwifterSwift
 
 protocol Alert {}
 
@@ -22,31 +23,14 @@ extension String{
         return self
     }
     
-    func formatToDate(format: String) -> Date {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        
-        guard let date = dateFormatter.date(from: self) else {
-            return Date()
-        }
-        return date
-    }
     func formatToStringDate(oldFormat: String, newFormat: String) -> String {
-        let date = String().formatToDate(format: oldFormat)
-        let newStringDate = date.convertToString(format: newFormat)
-        
-        return newStringDate
+        if let date = self.date(withFormat: oldFormat) {
+            return date.string(withFormat: "dd/MM/yyyy HH:mm")
+        }
+        return ""
     }
 }
 
 extension Date {
-    func convertToString(format: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        
-        let newDate: String = dateFormatter.string(from: self)
-        
-        return newDate
-    }
+
 }

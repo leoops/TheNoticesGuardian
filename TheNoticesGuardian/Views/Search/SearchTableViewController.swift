@@ -41,7 +41,7 @@ class SearchTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: searchNoticeCell, for: indexPath) as! SearchNoticeTableViewCell
         if  self.notices.count > 0 {
             let notice = self.notices[indexPath.row]
-            cell.dateLabel.text = notice.webPublicationDate?.formatToStringDate(oldFormat: "yyyy-MM-dd'T'HH:mm:ssZ", newFormat: "dd/MM/yyyy' 'HH:mm:ss")
+            cell.dateLabel.text = notice.webPublicationDate?.formatToStringDate(oldFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'", newFormat: "dd/MM/yyyy' 'HH:mm:ss")
             cell.sectionLabel.text = notice.sectionName
             cell.titleLabel.text = notice.webTitle
         }
@@ -60,11 +60,10 @@ class SearchTableViewController: UITableViewController {
             sectionModalTableViewController.delegate = self
             sectionModalTableViewController.selectedSections = self.sections
         }
-        if let noticeViewController = segue.destination as? NoticeViewController {
-            if let sender = sender as? String {
-                noticeViewController.noticeId = sender
-            }
+        if let noticeViewController = segue.destination as? NoticeViewController, let sender = sender as? String {
+            noticeViewController.noticeId = sender
         }
+
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: noticeSegue, sender: notices[indexPath.row].id)
@@ -74,21 +73,14 @@ class SearchTableViewController: UITableViewController {
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y >= scrollView.contentSize.height - scrollView.frame.size.height {
-            if (notices.count != 0) {
-                requestAndReplaceSearchNotices(queryParam: self.queryParam!, section: prepareData())
-            }
+            notices.count != 0 ? requestAndReplaceSearchNotices(queryParam: self.queryParam!, section: prepareData()) : nil
         }
     }
     
     func newRequestSearchNotices(queryParam: String, section: String) {
-        self.notices.removeAll()
-        ApiService.requestOfSearchNotice(withQueryParam: queryParam, andPage: 1, inSection: section,  handler: { (newNotices) in
-            if let notices = newNotices{
-                self.notices = notices.results
-                self.currentPage = notices.currentPage
-            }
-            self.tableView.reloadData()
-        })
+            notices.removeAll()
+            self.currentPage = 0
+            requestAndReplaceSearchNotices(queryParam: queryParam, section: section)
     }
     
     func requestAndReplaceSearchNotices(queryParam: String, section: String) {
@@ -98,18 +90,17 @@ class SearchTableViewController: UITableViewController {
             ApiService.requestOfSearchNotice(withQueryParam: queryParam, andPage: self.currentPage!, inSection: section,  handler: { (newNotices) in
                 if let notices = newNotices{
                     self.notices += notices.results
-                    if self.currentPage! < notices.pages! {
-                        self.isRefresh = false
-                    }
+                    self.currentPage! < notices.pages! ? self.isRefresh = false : nil
                 }
                 self.tableView.reloadData()
                 
             })
         }
     }
+    
     func prepareData() -> String  {
-        var selectedSections = ""
         
+        var selectedSections = ""
         self.sections.forEach { selectedSections.append("\($0.value)|") }
         selectedSections = "\(selectedSections.dropLast())"
         
@@ -120,7 +111,7 @@ class SearchTableViewController: UITableViewController {
 extension SearchTableViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        newRequestSearchNotices(queryParam: self.queryParam!, section: prepareData())
+         newRequestSearchNotices(queryParam: self.queryParam!, section: prepareData())
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -134,4 +125,6 @@ extension SearchTableViewController: SectionModalTableViewControllerDelegate {
         newRequestSearchNotices(queryParam: self.queryParam!, section: prepareData())
     }
 }
+
+
 
