@@ -37,21 +37,23 @@ class NoticesTableViewController: UITableViewController {
     
     /// Requisição de noticias com atualização da tela
     func requestAndRefreshOfNotices() {
-        
         if !isRefresh{
             self.isRefresh = true
             self.currentPage = self.currentPage! + 1
-            ApiService.requestNotices(inPage: self.currentPage!, withSection: self.selectedSection!, handler: { (newNotices) in
-                if let notices = newNotices?.results {
-                    self.notices += notices
+            let url = LinkManager.listOfNotices(section: self.selectedSection!, pageNumber: "\(self.currentPage!)")
+            
+            ApiService().resquest(url: url, handler: { (response) in
+                if let response = response {
+                    let notices  = Notices(object: response)
+                    self.notices += notices.results
+                    if self.currentPage! < (notices.pages)! {
+                        self.isRefresh = false
+                    }
+                    self.tableView.reloadData()
                 }
-                if self.currentPage! < (newNotices?.pages)! {
-                    self.isRefresh = false
-                }
-                self.tableView.reloadData()
+                
             })
         }
-        
     }
     
     // MARK: - Table view data source

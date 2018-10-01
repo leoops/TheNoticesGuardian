@@ -28,9 +28,10 @@ class NoticeViewController: UIViewController {
     ///
     /// - Parameter id: codigo da noticia
     func requestNotice(id: String) {
-        ApiService.requestNotice(withId: id, handler: { (item) in
-            if let notice = item {
-                
+        let url = LinkManager.itemNotice(id: id)
+        ApiService().resquest(url: url, handler: { (response) in
+            if let response = response {
+                let notice = Notice(object: response)
                 self.dateLabel.text = notice.webPublicationDate?.formatToStringDate(oldFormat: "yyyy-MM-dd'T'HH:mm:ssZ", newFormat: "dd/MM/yyyy' 'HH:mm:ss")
                 self.sectionLabel.text = notice.sectionName
                 self.titleLabel.text = notice.webTitle

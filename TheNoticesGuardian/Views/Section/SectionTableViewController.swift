@@ -8,8 +8,11 @@
 
 import UIKit
 import Alamofire
+import SwiftyJSON
 
 class SectionTableViewController: UITableViewController {
+    
+    typealias JsonSectionHandler = (([SectionResults]?) -> ())
     
     var sections = [SectionResults]()
     let showElement: String = "all"
@@ -62,9 +65,13 @@ class SectionTableViewController: UITableViewController {
     ///
     /// - Parameter element: categoria da seção
     func requestSections(element : String ) {
-        ApiService.requestAllSections(showElements: element, handler: { (items) in
-            if let items = items { self.sections = items }
-            self.tableView.reloadData()
+        let url = LinkManager.listOfSections(showElements: element)
+        ApiService().resquest(url: url, handler: { response in
+            if let response = response {
+                let sections  = Section(object: response)
+                self.sections = sections.results
+                self.tableView.reloadData()
+            }
         })
     }
 }

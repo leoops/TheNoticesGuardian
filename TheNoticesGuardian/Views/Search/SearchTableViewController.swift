@@ -77,22 +77,20 @@ class SearchTableViewController: UITableViewController {
         }
     }
     
-    func newRequestSearchNotices(queryParam: String, section: String) {
-            notices.removeAll()
-            self.currentPage = 0
-            requestAndReplaceSearchNotices(queryParam: queryParam, section: section)
-    }
+ 
     
     func requestAndReplaceSearchNotices(queryParam: String, section: String) {
         if !isRefresh{
             self.isRefresh = true
             self.currentPage = self.currentPage! + 1
-            ApiService.requestOfSearchNotice(withQueryParam: queryParam, andPage: self.currentPage!, inSection: section,  handler: { (newNotices) in
-                if let notices = newNotices{
+            let url = LinkManager.listsOfSearchNotices(withQueryParam: queryParam, andPage: "\(self.currentPage!)", inSection: section)
+            ApiService().resquest(url: url, handler: { response in
+                if let response = response {
+                    let notices = SearchNotice(object: response)
                     self.notices += notices.results
                     self.currentPage! < notices.pages! ? self.isRefresh = false : nil
+                    self.tableView.reloadData()
                 }
-                self.tableView.reloadData()
                 
             })
         }
@@ -111,7 +109,9 @@ class SearchTableViewController: UITableViewController {
 extension SearchTableViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-         newRequestSearchNotices(queryParam: self.queryParam!, section: prepareData())
+        notices.removeAll()
+        self.currentPage = 0
+        requestAndReplaceSearchNotices(queryParam: self.queryParam!, section: prepareData())
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -122,7 +122,9 @@ extension SearchTableViewController: UISearchBarDelegate {
 extension SearchTableViewController: SectionModalTableViewControllerDelegate {
     func selectedSection(selectedSections : [Int : String]) {
         self.sections = selectedSections
-        newRequestSearchNotices(queryParam: self.queryParam!, section: prepareData())
+        notices.removeAll()
+        self.currentPage = 0
+        requestAndReplaceSearchNotices(queryParam: self.queryParam!, section: prepareData())
     }
 }
 

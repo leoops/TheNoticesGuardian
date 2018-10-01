@@ -87,12 +87,14 @@ class SectionModalTableViewController: UITableViewController {
     // MARK: - Data request
     
     func requestSections(element : String ) {
-        ApiService.requestAllSections(showElements: element, handler: { (items) in
-            if let items = items {
+        let url = LinkManager.listOfSections(showElements: element)
+        ApiService().resquest(url: url, handler: { response in
+            if let response = response {
+                let items = Section(object: response)
                 self.sections.append(SectionResults(id: "", webTitle: "All", apiUrl: ""))
-                self.sections += items
+                self.sections += items.results
+                self.tableView.reloadData()
             }
-            self.tableView.reloadData()
         })
     }
 
