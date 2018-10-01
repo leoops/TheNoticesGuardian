@@ -89,31 +89,28 @@
                                                 <constraint firstAttribute="height" constant="90" id="srb-i0-Vlj"/>
                                             </constraints>
                                         </imageView>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="0yn-2S-X6s">
-                                            <rect key="frame" x="122" y="8" width="237" height="90.5"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2N2-Gb-RWM">
-                                                    <rect key="frame" x="0.0" y="0.0" width="26.5" height="45.5"/>
-                                                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="12"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Titulo" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lwH-di-Mfe">
-                                                    <rect key="frame" x="0.0" y="45.5" width="31.5" height="45"/>
-                                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="13"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </stackView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Titulo" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lwH-di-Mfe">
+                                            <rect key="frame" x="122" y="40.5" width="237" height="16.5"/>
+                                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2N2-Gb-RWM">
+                                            <rect key="frame" x="122" y="21" width="237" height="14.5"/>
+                                            <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="12"/>
+                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="0yn-2S-X6s" firstAttribute="bottom" secondItem="CH9-mX-3o8" secondAttribute="bottom" id="75m-0X-FjD"/>
                                         <constraint firstItem="CH9-mX-3o8" firstAttribute="top" secondItem="KVQ-C6-BE1" secondAttribute="top" constant="8" id="EBD-fg-R9b"/>
-                                        <constraint firstItem="0yn-2S-X6s" firstAttribute="top" secondItem="CH9-mX-3o8" secondAttribute="top" id="GXa-57-22X"/>
-                                        <constraint firstAttribute="trailing" secondItem="0yn-2S-X6s" secondAttribute="trailing" constant="16" id="HbZ-Re-Qii"/>
+                                        <constraint firstItem="2N2-Gb-RWM" firstAttribute="leading" secondItem="CH9-mX-3o8" secondAttribute="trailing" constant="16" id="HF0-tT-1j4"/>
+                                        <constraint firstAttribute="trailing" secondItem="2N2-Gb-RWM" secondAttribute="trailing" constant="16" id="HbG-xc-1XN"/>
                                         <constraint firstItem="CH9-mX-3o8" firstAttribute="leading" secondItem="KVQ-C6-BE1" secondAttribute="leading" constant="16" id="IJL-fa-aaa"/>
-                                        <constraint firstItem="0yn-2S-X6s" firstAttribute="leading" secondItem="CH9-mX-3o8" secondAttribute="trailing" constant="16" id="mDj-Re-6dd"/>
+                                        <constraint firstItem="lwH-di-Mfe" firstAttribute="leading" secondItem="2N2-Gb-RWM" secondAttribute="leading" id="Jbh-YS-pdU"/>
+                                        <constraint firstItem="lwH-di-Mfe" firstAttribute="trailing" secondItem="2N2-Gb-RWM" secondAttribute="trailing" id="Kub-cK-MoV"/>
+                                        <constraint firstItem="2N2-Gb-RWM" firstAttribute="top" secondItem="KVQ-C6-BE1" secondAttribute="top" constant="21" id="cSu-Xq-TJI"/>
+                                        <constraint firstItem="lwH-di-Mfe" firstAttribute="top" secondItem="2N2-Gb-RWM" secondAttribute="bottom" constant="5" id="jMW-8i-93M"/>
                                         <constraint firstAttribute="bottom" secondItem="CH9-mX-3o8" secondAttribute="bottom" constant="8" id="r3V-oJ-qEJ"/>
                                     </constraints>
                                 </tableViewCellContentView>

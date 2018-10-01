@@ -18,7 +18,6 @@ class ApiService {
     typealias JsonHandler = ((Any?) -> ())
     
     
-    //reduzir chamadas para metodo generico. Onde a tratativa ficaria na view.
     // aprender a trabalhar com tag.
     // tipo, url, (params) if outher
     // tirar barra de scroll da scrollview
