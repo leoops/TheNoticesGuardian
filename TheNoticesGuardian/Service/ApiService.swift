@@ -17,6 +17,12 @@ class ApiService {
     typealias JsonSectionHandler = (([SectionResults]?) -> ())
     
     
+    //reduzir chamadas para metodo generico. Onde a tratativa ficaria na view.
+    // aprender a trabalhar com tag.
+    // tipo, url, (params) if outher
+    // tirar barra de scroll da scrollview
+    // print do restorno 
+    
     /// Metodo de requicao de lista de seções
     ///
     /// - Parameters:
