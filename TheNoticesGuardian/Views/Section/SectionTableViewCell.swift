@@ -23,7 +23,7 @@ class SectionTableViewCell: UITableViewCell {
     
     func setupLayer() {
         self.sectionLabel.text = ""
-        self.sectionLabel.layer.cornerRadius = (self.sectionLabel.frame.size.height/2)
+        self.sectionLabel.cornerRadius = (self.sectionLabel.frame.size.height/2)
         self.sectionLabel.clipsToBounds = true
     }
 }

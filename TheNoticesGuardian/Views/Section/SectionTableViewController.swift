@@ -47,7 +47,7 @@ class SectionTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let noticesTableViewController = segue.destination as? NoticesTableViewController {
             if let section = sender as? SectionResults {
-                noticesTableViewController.selectedSection = section.id
+                if let id = section.id { noticesTableViewController.selectedSection = id }
                 noticesTableViewController.sectionTitle = section.webTitle
                 
             }

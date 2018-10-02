@@ -15,11 +15,11 @@ class NoticesTableViewController: UITableViewController {
 
     var notices = [NoticesResults]()
     
-    var selectedSection: String?
+    var selectedSection: String = ""
     var sectionTitle: String?
     
     var isRefresh: Bool = false
-    var currentPage: Int? = 0
+    var currentPage: Int = 0
     var page: Int = 0
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,15 +39,15 @@ class NoticesTableViewController: UITableViewController {
     func requestAndRefreshOfNotices() {
         if !isRefresh{
             self.isRefresh = true
-            self.currentPage = self.currentPage! + 1
-            let url = LinkManager.listOfNotices(section: self.selectedSection!, pageNumber: "\(self.currentPage!)")
+            self.currentPage += 1
+            let url = LinkManager.listOfNotices(section: self.selectedSection, pageNumber: "\(self.currentPage)")
             
             ApiService().resquest(url: url, handler: { (response) in
                 if let response = response {
                     let notices  = Notices(object: response)
                     self.notices += notices.results
-                    if self.currentPage! < (notices.pages)! {
-                        self.isRefresh = false
+                    if let pages = notices.pages {
+                        self.currentPage < pages ? self.isRefresh = false : nil
                     }
                     self.tableView.reloadData()
                 }

@@ -21,7 +21,7 @@ class NoticeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.initialConfig()
-        requestNotice(id: noticeId!)
+        if let noticeId = self.noticeId { requestNotice(id: noticeId) }
     }
     
     /// Requisição da noticia aparti do id

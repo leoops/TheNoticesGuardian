@@ -18,9 +18,9 @@ class SearchTableViewController: UITableViewController {
     let searchNoticeCell = "searchNoticeCell"
     
     var sections = [Int: String]()
-    var queryParam: String? = ""
+    var queryParam: String = ""
     var notices = [SearchResults]()
-    var currentPage: Int? = 0
+    var currentPage: Int = 0
     var isRefresh: Bool = false
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,7 +73,7 @@ class SearchTableViewController: UITableViewController {
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y >= scrollView.contentSize.height - scrollView.frame.size.height {
-            notices.count != 0 ? requestAndReplaceSearchNotices(queryParam: self.queryParam!, section: prepareData()) : nil
+            notices.count != 0 ? requestAndReplaceSearchNotices(queryParam: self.queryParam, section: prepareData()) : nil
         }
     }
     
@@ -82,13 +82,16 @@ class SearchTableViewController: UITableViewController {
     func requestAndReplaceSearchNotices(queryParam: String, section: String) {
         if !isRefresh{
             self.isRefresh = true
-            self.currentPage = self.currentPage! + 1
-            let url = LinkManager.listsOfSearchNotices(withQueryParam: queryParam, andPage: "\(self.currentPage!)", inSection: section)
+            self.currentPage += 1
+            
+            let url = LinkManager.listsOfSearchNotices(withQueryParam: queryParam, andPage: "\(self.currentPage)", inSection: section)
             ApiService().resquest(url: url, handler: { response in
                 if let response = response {
                     let notices = SearchNotice(object: response)
                     self.notices += notices.results
-                    self.currentPage! < notices.pages! ? self.isRefresh = false : nil
+                    if let pages = notices.pages {
+                        self.currentPage < pages ? self.isRefresh = false : nil
+                    }
                     self.tableView.reloadData()
                 }
                 
@@ -111,7 +114,7 @@ extension SearchTableViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         notices.removeAll()
         self.currentPage = 0
-        requestAndReplaceSearchNotices(queryParam: self.queryParam!, section: prepareData())
+        requestAndReplaceSearchNotices(queryParam: self.queryParam, section: prepareData())
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -124,7 +127,7 @@ extension SearchTableViewController: SectionModalTableViewControllerDelegate {
         self.sections = selectedSections
         notices.removeAll()
         self.currentPage = 0
-        requestAndReplaceSearchNotices(queryParam: self.queryParam!, section: prepareData())
+        requestAndReplaceSearchNotices(queryParam: self.queryParam, section: prepareData())
     }
 }
 
