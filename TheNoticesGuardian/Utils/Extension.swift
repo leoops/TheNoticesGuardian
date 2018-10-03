@@ -8,7 +8,7 @@
 
 import Foundation
 import SwifterSwift
-
+import Lottie
 protocol Alert {}
 
 extension String{
@@ -31,6 +31,8 @@ extension String{
     }
 }
 
-extension Date {
-
+extension LOTAnimationView {
+    func repositionAnimationOnScreen(positionX: CGFloat, positionY: CGFloat) {
+        self.frame.origin = CGPoint(x: positionX - self.width/2, y: positionY - self.height/2)
+    }
 }

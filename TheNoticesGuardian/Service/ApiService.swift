@@ -18,9 +18,8 @@ class ApiService {
     typealias JsonHandler = ((Any?) -> ())
     
     
-    // aprender a trabalhar com tag.
-    // tipo, url, (params) if outher
-    // tirar barra de scroll da scrollview
+    // aprender a trabalhar com tag. (ver com guto)
+    // tipo, url, (params) if outher (ver com guto)
 
     /// Metodo de requicao de lista de seções
     ///

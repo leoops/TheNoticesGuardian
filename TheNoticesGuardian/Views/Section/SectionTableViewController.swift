@@ -9,19 +9,44 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import Lottie
 
 class SectionTableViewController: UITableViewController {
     
     typealias JsonSectionHandler = (([SectionResults]?) -> ())
     
+    var animationView: LOTAnimationView = LOTAnimationView(name: "loader");
     var sections = [SectionResults]()
     let showElement: String = "all"
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.initiAnimation()
         requestSections(element: showElement)
     }
     // MARK: - Table view data
+    
+    func initiAnimation(){
+        
+        animationView.contentMode = .scaleAspectFit
+        
+        animationView.frame.size = CGSize(width: 100, height: 100)
+        animationView.repositionAnimationOnScreen(positionX: self.view.frame.size.width/2, positionY: self.view.frame.size.height/2)
+        self.tableView.addSubview(animationView)
+        
+        animationView.loopAnimation = true
+        animationView.play(fromProgress: 0, toProgress: 1, withCompletion: nil)
+    } 
+    func stopAnimation() {
+        animationView.stop()
+        animationView.isHidden = true
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        animationView.repositionAnimationOnScreen(positionX: size.width/2, positionY: size.height/2)
+    }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -49,7 +74,6 @@ class SectionTableViewController: UITableViewController {
             if let section = sender as? SectionResults {
                 if let id = section.id { noticesTableViewController.selectedSection = id }
                 noticesTableViewController.sectionTitle = section.webTitle
-                
             }
         }
     }
@@ -71,6 +95,7 @@ class SectionTableViewController: UITableViewController {
                 let sections  = Section(object: response)
                 self.sections = sections.results
                 self.tableView.reloadData()
+                self.stopAnimation()
             }
         })
     }

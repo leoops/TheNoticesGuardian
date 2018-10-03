@@ -8,13 +8,14 @@
 
 import UIKit
 import Kingfisher
+import Lottie
 
 class NoticesTableViewController: UITableViewController {
     
    let noticeSegue = "noticeSegue"
 
     var notices = [NoticesResults]()
-    
+    var animationView: LOTAnimationView = LOTAnimationView(name: "jornalLoader");
     var selectedSection: String = ""
     var sectionTitle: String?
     
@@ -25,6 +26,8 @@ class NoticesTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.title = sectionTitle
+        
+        self.initiAnimation()
         self.requestAndRefreshOfNotices()
     }
 
@@ -33,8 +36,7 @@ class NoticesTableViewController: UITableViewController {
     }
     
     // MARK: - Data request
-    
-    
+
     /// Requisição de noticias com atualização da tela
     func requestAndRefreshOfNotices() {
         if !isRefresh{
@@ -49,6 +51,7 @@ class NoticesTableViewController: UITableViewController {
                     if let pages = notices.pages {
                         self.currentPage < pages ? self.isRefresh = false : nil
                     }
+                    self.stopAnimation()
                     self.tableView.reloadData()
                 }
                 
@@ -105,6 +108,24 @@ class NoticesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.001
+    }
+
+    // MARK: - Animation
+    
+    func initiAnimation(){
+        animationView.contentMode = .scaleAspectFit
+        
+        animationView.frame.size = CGSize(width: 100, height: 100)
+        animationView.repositionAnimationOnScreen(positionX: self.view.frame.size.width/2, positionY: self.view.frame.size.height/2)
+        self.tableView.addSubview(animationView)
+        
+        animationView.loopAnimation = true
+        animationView.play(fromProgress: 0, toProgress: 1, withCompletion: nil)
+    }
+    
+    func stopAnimation() {
+        animationView.stop()
+        animationView.isHidden = true
     }
 
 }
