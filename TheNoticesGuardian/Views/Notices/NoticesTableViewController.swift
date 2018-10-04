@@ -15,7 +15,7 @@ class NoticesTableViewController: UITableViewController {
    let noticeSegue = "noticeSegue"
 
     var notices = [NoticesResults]()
-    var animationView: LOTAnimationView = LOTAnimationView(name: "jornalLoader");
+    var animationView: LOTAnimationView = LOTAnimationView(name: "loader");
     var selectedSection: String = ""
     var sectionTitle: String?
     
@@ -27,7 +27,7 @@ class NoticesTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         self.title = sectionTitle
         
-        self.initiAnimation()
+        self.includeAnimation()
         self.requestAndRefreshOfNotices()
     }
 
@@ -40,6 +40,7 @@ class NoticesTableViewController: UITableViewController {
     /// Requisição de noticias com atualização da tela
     func requestAndRefreshOfNotices() {
         if !isRefresh{
+            animationView.playAnimation()
             self.isRefresh = true
             self.currentPage += 1
             let url = LinkManager.listOfNotices(section: self.selectedSection, pageNumber: "\(self.currentPage)")
@@ -51,7 +52,7 @@ class NoticesTableViewController: UITableViewController {
                     if let pages = notices.pages {
                         self.currentPage < pages ? self.isRefresh = false : nil
                     }
-                    self.stopAnimation()
+                    self.animationView.stopAndHidenAnimation()
                     self.tableView.reloadData()
                 }
                 
@@ -85,7 +86,7 @@ class NoticesTableViewController: UITableViewController {
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y >= scrollView.contentSize.height - scrollView.frame.size.height {
+        if scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height) - 100 {
             if notices.count != 0 {
                 requestAndRefreshOfNotices()
             }
@@ -107,12 +108,14 @@ class NoticesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.001
+        return 0.0001
     }
-
+    
+    
     // MARK: - Animation
     
-    func initiAnimation(){
+    func includeAnimation(){
+        
         animationView.contentMode = .scaleAspectFit
         
         animationView.frame.size = CGSize(width: 100, height: 100)
@@ -120,12 +123,11 @@ class NoticesTableViewController: UITableViewController {
         self.tableView.addSubview(animationView)
         
         animationView.loopAnimation = true
-        animationView.play(fromProgress: 0, toProgress: 1, withCompletion: nil)
-    }
-    
-    func stopAnimation() {
-        animationView.stop()
         animationView.isHidden = true
     }
-
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        animationView.repositionAnimationOnScreen(positionX: size.width/2, positionY: size.height/2)
+    }
 }

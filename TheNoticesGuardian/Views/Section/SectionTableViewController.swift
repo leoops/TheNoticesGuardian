@@ -22,31 +22,10 @@ class SectionTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.initiAnimation()
+        self.includeAnimation()
         requestSections(element: showElement)
     }
     // MARK: - Table view data
-    
-    func initiAnimation(){
-        
-        animationView.contentMode = .scaleAspectFit
-        
-        animationView.frame.size = CGSize(width: 100, height: 100)
-        animationView.repositionAnimationOnScreen(positionX: self.view.frame.size.width/2, positionY: self.view.frame.size.height/2)
-        self.tableView.addSubview(animationView)
-        
-        animationView.loopAnimation = true
-        animationView.play(fromProgress: 0, toProgress: 1, withCompletion: nil)
-    } 
-    func stopAnimation() {
-        animationView.stop()
-        animationView.isHidden = true
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        animationView.repositionAnimationOnScreen(positionX: size.width/2, positionY: size.height/2)
-    }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -89,14 +68,34 @@ class SectionTableViewController: UITableViewController {
     ///
     /// - Parameter element: categoria da seção
     func requestSections(element : String ) {
+        animationView.playAnimation()
         let url = LinkManager.listOfSections(showElements: element)
         ApiService().resquest(url: url, handler: { response in
             if let response = response {
                 let sections  = Section(object: response)
                 self.sections = sections.results
                 self.tableView.reloadData()
-                self.stopAnimation()
+                self.animationView.stopAndHidenAnimation()
             }
         })
+    }
+    
+    // MARK: - Animation
+    
+    func includeAnimation(){
+        
+        animationView.contentMode = .scaleAspectFit
+        animationView.frame.size = CGSize(width: 100, height: 100)
+        animationView.repositionAnimationOnScreen(positionX: self.view.frame.size.width/2, positionY: self.view.frame.size.height/2)
+        
+        self.tableView.addSubview(animationView)
+        
+        animationView.loopAnimation = true
+        animationView.isHidden = true
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        animationView.repositionAnimationOnScreen(positionX: size.width/2, positionY: size.height/2)
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Lottie
 
 class SearchTableViewController: UITableViewController {
 
@@ -17,6 +18,7 @@ class SearchTableViewController: UITableViewController {
     let noticeSegue = "searchNoticeSegue"
     let searchNoticeCell = "searchNoticeCell"
     
+    var animationView: LOTAnimationView = LOTAnimationView(name: "search");
     var sections = [Int: String]()
     var queryParam: String = ""
     var notices = [SearchResults]()
@@ -25,6 +27,7 @@ class SearchTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.includeAnimation()
     }
     
     // MARK: - Table view data source
@@ -81,12 +84,13 @@ class SearchTableViewController: UITableViewController {
     
     func requestAndReplaceSearchNotices(queryParam: String, section: String) {
         if !isRefresh{
+            animationView.playAnimation()
             self.isRefresh = true
             self.currentPage += 1
-            
             let url = LinkManager.listsOfSearchNotices(withQueryParam: queryParam, andPage: "\(self.currentPage)", inSection: section)
             ApiService().resquest(url: url, handler: { response in
                 if let response = response {
+                    self.animationView.stopAndHidenAnimation()
                     let notices = SearchNotice(object: response)
                     self.notices += notices.results
                     if let pages = notices.pages {
@@ -94,18 +98,36 @@ class SearchTableViewController: UITableViewController {
                     }
                     self.tableView.reloadData()
                 }
-                
             })
         }
     }
     
     func prepareData() -> String  {
-        
         var selectedSections = ""
         self.sections.forEach { selectedSections.append("\($0.value)|") }
         selectedSections = "\(selectedSections.dropLast())"
         
         return selectedSections
+    }
+    
+    
+    // MARK: - Animation
+    
+    func includeAnimation(){
+        
+        animationView.contentMode = .scaleAspectFit
+        animationView.frame.size = CGSize(width: 100, height: 100)
+        animationView.repositionAnimationOnScreen(positionX: self.view.frame.size.width/2, positionY: self.view.frame.size.height/2)
+        
+        self.tableView.addSubview(animationView)
+        
+        animationView.loopAnimation = true
+        animationView.isHidden = true
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        animationView.repositionAnimationOnScreen(positionX: size.width/2, positionY: size.height/2)
     }
 }
 
@@ -114,6 +136,7 @@ extension SearchTableViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         notices.removeAll()
         self.currentPage = 0
+        self.tableView.reloadData()
         requestAndReplaceSearchNotices(queryParam: self.queryParam, section: prepareData())
     }
     
@@ -126,6 +149,7 @@ extension SearchTableViewController: SectionModalTableViewControllerDelegate {
     func selectedSection(selectedSections : [Int : String]) {
         self.sections = selectedSections
         notices.removeAll()
+        self.tableView.reloadData()
         self.currentPage = 0
         requestAndReplaceSearchNotices(queryParam: self.queryParam, section: prepareData())
     }

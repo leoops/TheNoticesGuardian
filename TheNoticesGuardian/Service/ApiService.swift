@@ -24,6 +24,28 @@ class ApiService {
     /// Metodo de requicao de lista de seções
     ///
     /// - Parameters:
+    ///   - showElements: categoria da seção
+    ///   - handler: closure de resposta
+    static func requestAllSections(showElements: String, handler: JsonSectionHandler?){
+        guard let url = URL(string:LinkManager.listOfSections(showElements: showElements)) else {
+            return
+        }
+        Alamofire.request(url).validate().responseJSON { (dataResponse) in
+            switch dataResponse.result {
+            case .success(let value):
+                let dataSections = Section(object: value)
+                if let handlerUnwrapped = handler {
+                    handlerUnwrapped(dataSections.results)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    /// Metodo de requicao de lista de seções
+    ///
+    /// - Parameters:
     ///   - url: caminho de chamada da api
     ///   - handler: closure de resposta
     func resquest(url: String, handler: JsonHandler?) {

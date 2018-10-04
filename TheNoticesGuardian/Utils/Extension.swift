@@ -35,4 +35,15 @@ extension LOTAnimationView {
     func repositionAnimationOnScreen(positionX: CGFloat, positionY: CGFloat) {
         self.frame.origin = CGPoint(x: positionX - self.width/2, y: positionY - self.height/2)
     }
+    func stopAndHidenAnimation() {
+        if !self.isHidden {
+            self.stop()
+            self.isHidden = true
+        }
+    }
+    
+    func playAnimation() {
+        if self.isHidden { self.isHidden = false }
+        self.play()
+    }
 }
